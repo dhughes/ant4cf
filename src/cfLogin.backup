@@ -1,0 +1,48 @@
+import org.apache.tools.ant.BuildException;
+
+public class cfLogin extends ProxyTask {
+	private String adminPassword="";
+	private String adminUserId="";
+	
+	public void execute() throws BuildException {
+		// this thing will need to make an http call to something that will actually do what's being requested
+		
+		// to make the http call we need to know at what URL the admin proxy is.
+		String adminProxyUrl = getProject().getProperty("adminProxyUrl");
+		
+		// validate the login information
+		try{
+			String url = adminProxyUrl + "?method=login&adminPassword=" + getAdminPassword() + "&returnformat=plain";
+			if(getAdminUserId() != ""){
+				url += "&adminUserId=" + getAdminUserId();
+			}
+			
+			if(!readBooleanFromUrl(url)){
+				throw new BuildException("cfLogin: Login Failed");
+			}
+		} catch(Exception e){
+			throw new BuildException(e.getMessage());
+		}
+		
+		// set the login information into the project
+		getProject().setProperty("adminPassword", getAdminPassword());
+		getProject().setProperty("adminUserId", getAdminUserId());
+	}
+	
+	public void setAdminPassword(String adminPassword) {
+		this.adminPassword = adminPassword;
+	}
+
+	private String getAdminPassword() {
+		return adminPassword;
+	}
+
+	public void setAdminUserId(String adminUserId) {
+		this.adminUserId = adminUserId;
+	}
+
+	private String getAdminUserId() {
+		return adminUserId;
+	}
+
+}

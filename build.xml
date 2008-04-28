@@ -1,0 +1,100 @@
+<!-- this ant file is pretty much a dummy file used to run the remote build script -->
+<project name="CFAnt Build Script" default="BuildLocal" basedir="..">
+	
+	<!-- This is the directory holding cfant.  If you don't name this cfant then provide the name here. -->
+	<property name="thisDir" value="cfant" />
+	
+	<!-- This is the root url for cfant (I suggest a ssl url if possible).  I'm not sure how cfant will run outside of the webroot. -->
+	<property name="rootUrl" value="http://vpm/cfant" />
+	
+	<!-- This is the URL to the build.cfm included with cfant.  You shouldn't need to change this. -->
+	<property name="buildUrl" value="${rootUrl}/build/build.cfm" />
+	
+	<target name="BuildLocal">
+		<!-- This script calls remote scripts. -->
+		
+		<!--
+			Todo: 
+			
+			Gather some input values that will control how this script functions
+			
+			Add as many inputs as you want.  Anything that will be passed to the remote script should be all uppercase.
+			
+			Note that you need at least one remote script to run.  The script is identified by the "TARGET" variable.  
+			You will see that this example has the TARGET set to "BuildStaging,BuildProduction" if you change the target names,
+			add targets, or remote targets you'll need to update this input.  If you only have one target you can simply 
+			set a static property.
+		-->
+		<input message="Please enter which script to run:" validargs="BuildStaging,BuildProduction" addproperty="TARGET" />
+		<input message="Please enter SVN server username:" addproperty="SVNUSERNAME" />
+		<input message="Please enter SVN server password:" addproperty="SVNPASSWORD" />
+		<input message="Please enter CFAdmin password:" addproperty="CFADMINPASSWORD" />
+		
+		<!--
+			Todo: Run the script
+		
+			You will need to pass any arguments to the remote script that need to be passed.  Note that TARGET must be provided.
+			Anything else you provide will be passed as inputs to the remotely executed ant target. 
+		-->
+		<property name="remoteBuildRunnerUrl" value="${buildUrl}?TARGET=${TARGET}&amp;CFADMINPASSWORD=${CFADMINPASSWORD}&amp;SVNUSERNAME=${SVNUSERNAME}&amp;SVNPASSWORD=${SVNPASSWORD}" />
+		<echo message="Remotely Executing Build Via URL: ${remoteBuildRunnerUrl}" />
+		<get src="${remoteBuildRunnerUrl}" verbose="true" dest="${thisDir}/result.html"/>
+		
+		
+		<!-- this outputs the result of the remote ant execution -->
+		<loadfile srcFile="${thisDir}/result.html" property="result" />
+		<echo message="Remote Target '${TARGET}' Results:${line.separator}${result}" />
+		<delete file="${thisDir}/result.html" />
+	</target>
+	
+	<target name="BuildStaging">
+		<!-- This is an example of a remote target -->
+		
+		<!-- Todo: Write your ant script.
+			
+			Note that cfant provides all of the functionality of the ColdFusion admin api as a Task.  Each function in the API is avaliable.
+			However, 99% of these are untested, primarily because the code was generated.  To figure out what Tasks are avaliable look at the 
+			generated docs for the adminaip.  For example, browse to http://yoursite/CFIDE/adminapi/{adminapicfc}.cfc.  This will generate the 
+			documentation for that particular CFC.  Find a public function you want to execute.  For example, your might want to run the 
+			verifyDsn() method on datasource.cfc.  The name for this task will be cfverifyDsn.  
+			
+			To use a task you must first "load" it using the taskdef tag.  The name attribute should be whatever you plan to reference it by.
+			The classname is the fully qualified class name for the task.  The classpath should always be "${thisDir}/bin".
+			
+			The attributes the tag accepts are named the same as the arguments on the actual CFC.  For example, the verifyDsn method accepts
+			two arguments: dsn (required) and returnMsgOnError (optional). Provide these attributes on the task tag.  If the function you're
+			calling returns a value you can retreive the returned value by using the property argument.  Whatever name you specify is the name
+			of the property that ant will set to the value returned from the admin api. If the function you call returns a complex value this
+			is dumped as text and returned.
+			
+			Finally, you must ALWAYS use the cflogin task before any other tasks. 
+		-->
+	
+		<!-- coldfusion ant tasks -->
+		<taskdef name="cfsetMSSQL" classname="com.alagad.cfant.cfsetMSSQL" classpath="${thisDir}/bin" />
+		<taskdef name="cfverifyDsn" classname="com.alagad.cfant.cfverifyDsn" classpath="${thisDir}/bin" />
+		<taskdef name="cflogin" classname="com.alagad.cfant.cflogin" classpath="${thisDir}/bin" />
+		<taskdef name="cfgetCurrentIP" classname="com.alagad.cfant.cfgetCurrentIP" classpath="${thisDir}/bin"/>
+		
+		<!-- login to the cfadmin -->
+		<cflogin adminPassword="${CFADMINPASSWORD}" />
+		
+		<!-- get the server's ip -->
+		<cfgetCurrentIP property="IP" />
+		<echo message="Server IP: ${IP}" />
+
+		<!-- create/update a datasource -->
+		<cfsetMSSQL name="VirtualPM" host="mbpwin" database="VirtualPM" username="sa" password="${CFADMINPASSWORD}" selectmethod="Direct" />
+
+		<!-- validate a dsn -->
+		<cfverifyDsn dsn="VirtualPM" property="dsn" />
+		<echo message="VirtualPM DSN is Valid: ${dsn}" /> 
+		
+	</target>
+
+	<target name="BuildProduction">
+		<!-- This is a placeholder for another remote target -->
+		
+	</target>
+	
+</project>
