@@ -62,43 +62,45 @@ public class cflogin extends ProxyTask {
 	
 		
 	public void execute() throws BuildException {
-		
-		
-		// to make the http call we need to know at what URL the admin proxy is.
-		String proxyUrl = getProject().getProperty("rootUrl");
-		proxyUrl += "/proxy/administratorProxy.cfc";
-		proxyUrl += "?method=login";
-		proxyUrl += "&returnformat=plain";
-		
-		
-		
-			if(!getadminPassword().equals("")){
-				proxyUrl += "&adminPassword=" + getadminPassword(); 
-			} 
-		
-			if(!getadminUserId().equals("")){
-				proxyUrl += "&adminUserId=" + getadminUserId(); 
-			} 
-		
-			if(!getsalt().equals("")){
-				proxyUrl += "&salt=" + getsalt(); 
-			} 
-		
-			if(!getrdsPasswordAllowed().equals("")){
-				proxyUrl += "&rdsPasswordAllowed=" + getrdsPasswordAllowed(); 
-			} 
-		
-		
 		try{
+			
+			
+			// to make the http call we need to know at what URL the admin proxy is.
+			String proxyUrl = getProject().getProperty("rootUrl");
+			proxyUrl += "/proxy/administratorProxy.cfc";
+			proxyUrl += "?method=login";
+			proxyUrl += "&returnformat=plain";
+			
+			
+			
+				if(!getadminPassword().equals("")){
+					proxyUrl += "&adminPassword=" + getadminPassword(); 
+				} 
+			
+				if(!getadminUserId().equals("")){
+					proxyUrl += "&adminUserId=" + getadminUserId(); 
+				} 
+			
+				if(!getsalt().equals("")){
+					proxyUrl += "&salt=" + getsalt(); 
+				} 
+			
+				if(!getrdsPasswordAllowed().equals("")){
+					proxyUrl += "&rdsPasswordAllowed=" + getrdsPasswordAllowed(); 
+				} 
+			
+		
 			String result = getFromUrl(proxyUrl);
 			
 			
 				getProject().setProperty(getproperty(), result);
 			
-			
-			// check to see if we need to set a property
+					
+		} catch(NullPointerException e) { 
+			System.out.println("You must use the cflogin task before any other other adminapi tasks");
+			throw new BuildException(e.toString());
 		} catch(Exception e){
-			throw new BuildException(e.getMessage());
+			throw new BuildException(e.toString());
 		}
 		
 		

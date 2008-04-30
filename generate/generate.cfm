@@ -22,11 +22,18 @@
 		</cfif>
 		<cfloop from="1" to="#ArrayLen(component.functions[x].parameters)#" index="y">
 			<cfif component.functions[x].parameters[y].name IS NOT "adminPassword" AND component.functions[x].parameters[y].name IS NOT "adminUserId">
-				[cfargument name="#component.functions[x].parameters[y].name#" <cfif structKeyExists(component.functions[x].parameters[y], "type")>type="#component.functions[x].parameters[y].type#"</cfif> <cfif structKeyExists(component.functions[x].parameters[y], "required")>required="#component.functions[x].parameters[y].required#"</cfif>]
+				[cfargument name="#component.functions[x].parameters[y].name#" <cfif structKeyExists(component.functions[x].parameters[y], "type")>type="<cfif component.functions[x].parameters[y].type IS "array">string<cfelse>#component.functions[x].parameters[y].type#</cfif>"</cfif> <cfif structKeyExists(component.functions[x].parameters[y], "required")>required="#component.functions[x].parameters[y].required#"</cfif>]
 			</cfif>
 		</cfloop>
 		
 		[cfset var result = 0 /]
+				
+		[!--- convert datatypes ---]
+		<cfloop from="1" to="#ArrayLen(component.functions[x].parameters)#" index="y">
+			<cfif structKeyExists(component.functions[x].parameters[y], "type") AND component.functions[x].parameters[y].type IS "array">
+				[cfset arguments.#component.functions[x].parameters[y].name# = ListToArray(arguments.#component.functions[x].parameters[y].name#) /]
+			</cfif>
+		</cfloop>
 		
 		[!--- first call administrator login ---]
 		[cfif StructKeyExists(arguments, "adminUserId")]
@@ -100,40 +107,42 @@ public class cf#component.functions[x].name# extends ProxyTask {
 	</cfif>
 		
 	public void execute() throws BuildException {
-		<cfif component.functions[x].name IS NOT "login">
-			// get the login information from this project
-			String adminPassword = getProject().getProperty("adminPassword");
-			String adminUserId = getProject().getProperty("adminUserId");
-		</cfif>
-		
-		// to make the http call we need to know at what URL the admin proxy is.
-		String proxyUrl = getProject().getProperty("rootUrl");
-		proxyUrl += "/proxy/#componentName#Proxy.cfc";
-		proxyUrl += "?method=#component.functions[x].name#";
-		proxyUrl += "&returnformat=plain";
-		<cfif component.functions[x].name IS NOT "login">
-			proxyUrl += "&adminPassword=" + adminPassword;
-			if(!adminUserId.equals("")){
-				proxyUrl += "&adminUserId=" + adminUserId;
-			}
-		</cfif>
-		
-		<cfloop from="1" to="#ArrayLen(component.functions[x].parameters)#" index="y">
-			if(!get#component.functions[x].parameters[y].name#().equals("")){
-				proxyUrl += "&#component.functions[x].parameters[y].name#=" + get#component.functions[x].parameters[y].name#(); 
-			} 
-		</cfloop>
-		
 		try{
+			<cfif component.functions[x].name IS NOT "login">
+				// get the login information from this project
+				String adminPassword = getProject().getProperty("adminPassword");
+				String adminUserId = getProject().getProperty("adminUserId");
+			</cfif>
+			
+			// to make the http call we need to know at what URL the admin proxy is.
+			String proxyUrl = getProject().getProperty("rootUrl");
+			proxyUrl += "/proxy/#componentName#Proxy.cfc";
+			proxyUrl += "?method=#component.functions[x].name#";
+			proxyUrl += "&returnformat=plain";
+			<cfif component.functions[x].name IS NOT "login">
+				proxyUrl += "&adminPassword=" + adminPassword;
+				if(!adminUserId.equals("")){
+					proxyUrl += "&adminUserId=" + adminUserId;
+				}
+			</cfif>
+			
+			<cfloop from="1" to="#ArrayLen(component.functions[x].parameters)#" index="y">
+				if(!get#component.functions[x].parameters[y].name#().equals("")){
+					proxyUrl += "&#component.functions[x].parameters[y].name#=" + get#component.functions[x].parameters[y].name#(); 
+				} 
+			</cfloop>
+		
 			String result = getFromUrl(proxyUrl);
 			
 			<cfif StructKeyExists(component.functions[x], "returnType") OR Left(component.functions[x].name, 3) IS "get">
 				getProject().setProperty(getproperty(), result);
 			</cfif>
-			
-			// check to see if we need to set a property
+					
+		} catch(NullPointerException e) { 
+			System.out.println("You must use the cflogin task before any other other adminapi tasks");
+			throw new BuildException(e.toString());
 		} catch(Exception e){
-			throw new BuildException(e.getMessage());
+			throw new BuildException(e.toString());
 		}
 		
 		<cfif component.functions[x].name IS "login">

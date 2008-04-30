@@ -11,6 +11,9 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -52,6 +55,11 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -96,7 +104,7 @@
 			
 		
 			
-				<cfargument name="cfcPaths" type="array" required="Yes">
+				<cfargument name="cfcPaths" type="string" required="Yes">
 			
 		
 			
@@ -109,6 +117,21 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+				<cfset arguments.cfcPaths = ListToArray(arguments.cfcPaths) />
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -154,6 +177,13 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -195,6 +225,11 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -232,6 +267,9 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -277,6 +315,13 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -314,6 +359,9 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -371,6 +419,19 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -412,6 +473,11 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -453,6 +519,11 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -494,6 +565,11 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -539,6 +615,13 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -580,6 +663,11 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -621,6 +709,11 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -662,6 +755,11 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -703,6 +801,11 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -740,6 +843,9 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -777,6 +883,9 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -818,6 +927,11 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -855,6 +969,9 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>

@@ -145,6 +145,75 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -324,6 +393,77 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -361,6 +501,9 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -540,6 +683,79 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -733,6 +949,87 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -922,6 +1219,85 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -965,6 +1341,11 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -1158,6 +1539,87 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -1339,6 +1801,81 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -1380,6 +1917,11 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -1567,6 +2109,83 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -1612,6 +2231,13 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -1793,6 +2419,77 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -1966,6 +2663,77 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -2139,6 +2907,77 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -2324,6 +3163,83 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -2365,6 +3281,11 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -2402,6 +3323,9 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -2593,6 +3517,85 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -2630,6 +3633,9 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -2671,6 +3677,9 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -2710,6 +3719,9 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>
@@ -2879,6 +3891,75 @@
 		
 		
 		<cfset var result = 0 />
+				
+		<!--- convert datatypes --->
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
 		
 		<!--- first call administrator login --->
 		<cfif StructKeyExists(arguments, "adminUserId")>

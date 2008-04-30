@@ -82,62 +82,64 @@ public class cfsetClientStore extends ProxyTask {
 	
 		
 	public void execute() throws BuildException {
-		
-			// get the login information from this project
-			String adminPassword = getProject().getProperty("adminPassword");
-			String adminUserId = getProject().getProperty("adminUserId");
-		
-		
-		// to make the http call we need to know at what URL the admin proxy is.
-		String proxyUrl = getProject().getProperty("rootUrl");
-		proxyUrl += "/proxy/runtimeProxy.cfc";
-		proxyUrl += "?method=setClientStore";
-		proxyUrl += "&returnformat=plain";
-		
-			proxyUrl += "&adminPassword=" + adminPassword;
-			if(!adminUserId.equals("")){
-				proxyUrl += "&adminUserId=" + adminUserId;
-			}
-		
-		
-		
-			if(!getdescription().equals("")){
-				proxyUrl += "&description=" + getdescription(); 
-			} 
-		
-			if(!getdisable_globals().equals("")){
-				proxyUrl += "&disable_globals=" + getdisable_globals(); 
-			} 
-		
-			if(!getname().equals("")){
-				proxyUrl += "&name=" + getname(); 
-			} 
-		
-			if(!getpurge().equals("")){
-				proxyUrl += "&purge=" + getpurge(); 
-			} 
-		
-			if(!gettimeout().equals("")){
-				proxyUrl += "&timeout=" + gettimeout(); 
-			} 
-		
-			if(!gettype().equals("")){
-				proxyUrl += "&type=" + gettype(); 
-			} 
-		
-			if(!getdsn().equals("")){
-				proxyUrl += "&dsn=" + getdsn(); 
-			} 
-		
-		
 		try{
+			
+				// get the login information from this project
+				String adminPassword = getProject().getProperty("adminPassword");
+				String adminUserId = getProject().getProperty("adminUserId");
+			
+			
+			// to make the http call we need to know at what URL the admin proxy is.
+			String proxyUrl = getProject().getProperty("rootUrl");
+			proxyUrl += "/proxy/runtimeProxy.cfc";
+			proxyUrl += "?method=setClientStore";
+			proxyUrl += "&returnformat=plain";
+			
+				proxyUrl += "&adminPassword=" + adminPassword;
+				if(!adminUserId.equals("")){
+					proxyUrl += "&adminUserId=" + adminUserId;
+				}
+			
+			
+			
+				if(!getdescription().equals("")){
+					proxyUrl += "&description=" + getdescription(); 
+				} 
+			
+				if(!getdisable_globals().equals("")){
+					proxyUrl += "&disable_globals=" + getdisable_globals(); 
+				} 
+			
+				if(!getname().equals("")){
+					proxyUrl += "&name=" + getname(); 
+				} 
+			
+				if(!getpurge().equals("")){
+					proxyUrl += "&purge=" + getpurge(); 
+				} 
+			
+				if(!gettimeout().equals("")){
+					proxyUrl += "&timeout=" + gettimeout(); 
+				} 
+			
+				if(!gettype().equals("")){
+					proxyUrl += "&type=" + gettype(); 
+				} 
+			
+				if(!getdsn().equals("")){
+					proxyUrl += "&dsn=" + getdsn(); 
+				} 
+			
+		
 			String result = getFromUrl(proxyUrl);
 			
 			
-			
-			// check to see if we need to set a property
+					
+		} catch(NullPointerException e) { 
+			System.out.println("You must use the cflogin task before any other other adminapi tasks");
+			throw new BuildException(e.toString());
 		} catch(Exception e){
-			throw new BuildException(e.getMessage());
+			throw new BuildException(e.toString());
 		}
 		
 		

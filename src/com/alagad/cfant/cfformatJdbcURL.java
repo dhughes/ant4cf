@@ -132,82 +132,84 @@ public class cfformatJdbcURL extends ProxyTask {
 	
 		
 	public void execute() throws BuildException {
-		
-			// get the login information from this project
-			String adminPassword = getProject().getProperty("adminPassword");
-			String adminUserId = getProject().getProperty("adminUserId");
-		
-		
-		// to make the http call we need to know at what URL the admin proxy is.
-		String proxyUrl = getProject().getProperty("rootUrl");
-		proxyUrl += "/proxy/datasourceProxy.cfc";
-		proxyUrl += "?method=formatJdbcURL";
-		proxyUrl += "&returnformat=plain";
-		
-			proxyUrl += "&adminPassword=" + adminPassword;
-			if(!adminUserId.equals("")){
-				proxyUrl += "&adminUserId=" + adminUserId;
-			}
-		
-		
-		
-			if(!getdriver().equals("")){
-				proxyUrl += "&driver=" + getdriver(); 
-			} 
-		
-			if(!gethost().equals("")){
-				proxyUrl += "&host=" + gethost(); 
-			} 
-		
-			if(!getport().equals("")){
-				proxyUrl += "&port=" + getport(); 
-			} 
-		
-			if(!getdsn().equals("")){
-				proxyUrl += "&dsn=" + getdsn(); 
-			} 
-		
-			if(!getdatabase().equals("")){
-				proxyUrl += "&database=" + getdatabase(); 
-			} 
-		
-			if(!getdatasource().equals("")){
-				proxyUrl += "&datasource=" + getdatasource(); 
-			} 
-		
-			if(!getargs().equals("")){
-				proxyUrl += "&args=" + getargs(); 
-			} 
-		
-			if(!getinformixServer().equals("")){
-				proxyUrl += "&informixServer=" + getinformixServer(); 
-			} 
-		
-			if(!getselectMethod().equals("")){
-				proxyUrl += "&selectMethod=" + getselectMethod(); 
-			} 
-		
-			if(!getSID().equals("")){
-				proxyUrl += "&SID=" + getSID(); 
-			} 
-		
-			if(!getMaxPooledStatements().equals("")){
-				proxyUrl += "&MaxPooledStatements=" + getMaxPooledStatements(); 
-			} 
-		
-			if(!getisnewdb().equals("")){
-				proxyUrl += "&isnewdb=" + getisnewdb(); 
-			} 
-		
-		
 		try{
+			
+				// get the login information from this project
+				String adminPassword = getProject().getProperty("adminPassword");
+				String adminUserId = getProject().getProperty("adminUserId");
+			
+			
+			// to make the http call we need to know at what URL the admin proxy is.
+			String proxyUrl = getProject().getProperty("rootUrl");
+			proxyUrl += "/proxy/datasourceProxy.cfc";
+			proxyUrl += "?method=formatJdbcURL";
+			proxyUrl += "&returnformat=plain";
+			
+				proxyUrl += "&adminPassword=" + adminPassword;
+				if(!adminUserId.equals("")){
+					proxyUrl += "&adminUserId=" + adminUserId;
+				}
+			
+			
+			
+				if(!getdriver().equals("")){
+					proxyUrl += "&driver=" + getdriver(); 
+				} 
+			
+				if(!gethost().equals("")){
+					proxyUrl += "&host=" + gethost(); 
+				} 
+			
+				if(!getport().equals("")){
+					proxyUrl += "&port=" + getport(); 
+				} 
+			
+				if(!getdsn().equals("")){
+					proxyUrl += "&dsn=" + getdsn(); 
+				} 
+			
+				if(!getdatabase().equals("")){
+					proxyUrl += "&database=" + getdatabase(); 
+				} 
+			
+				if(!getdatasource().equals("")){
+					proxyUrl += "&datasource=" + getdatasource(); 
+				} 
+			
+				if(!getargs().equals("")){
+					proxyUrl += "&args=" + getargs(); 
+				} 
+			
+				if(!getinformixServer().equals("")){
+					proxyUrl += "&informixServer=" + getinformixServer(); 
+				} 
+			
+				if(!getselectMethod().equals("")){
+					proxyUrl += "&selectMethod=" + getselectMethod(); 
+				} 
+			
+				if(!getSID().equals("")){
+					proxyUrl += "&SID=" + getSID(); 
+				} 
+			
+				if(!getMaxPooledStatements().equals("")){
+					proxyUrl += "&MaxPooledStatements=" + getMaxPooledStatements(); 
+				} 
+			
+				if(!getisnewdb().equals("")){
+					proxyUrl += "&isnewdb=" + getisnewdb(); 
+				} 
+			
+		
 			String result = getFromUrl(proxyUrl);
 			
 			
-			
-			// check to see if we need to set a property
+					
+		} catch(NullPointerException e) { 
+			System.out.println("You must use the cflogin task before any other other adminapi tasks");
+			throw new BuildException(e.toString());
 		} catch(Exception e){
-			throw new BuildException(e.getMessage());
+			throw new BuildException(e.toString());
 		}
 		
 		

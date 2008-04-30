@@ -362,172 +362,174 @@ public class cfsetMySQL extends ProxyTask {
 	
 		
 	public void execute() throws BuildException {
-		
-			// get the login information from this project
-			String adminPassword = getProject().getProperty("adminPassword");
-			String adminUserId = getProject().getProperty("adminUserId");
-		
-		
-		// to make the http call we need to know at what URL the admin proxy is.
-		String proxyUrl = getProject().getProperty("rootUrl");
-		proxyUrl += "/proxy/datasourceProxy.cfc";
-		proxyUrl += "?method=setMySQL";
-		proxyUrl += "&returnformat=plain";
-		
-			proxyUrl += "&adminPassword=" + adminPassword;
-			if(!adminUserId.equals("")){
-				proxyUrl += "&adminUserId=" + adminUserId;
-			}
-		
-		
-		
-			if(!getname().equals("")){
-				proxyUrl += "&name=" + getname(); 
-			} 
-		
-			if(!gethost().equals("")){
-				proxyUrl += "&host=" + gethost(); 
-			} 
-		
-			if(!getdatabase().equals("")){
-				proxyUrl += "&database=" + getdatabase(); 
-			} 
-		
-			if(!getoriginaldsn().equals("")){
-				proxyUrl += "&originaldsn=" + getoriginaldsn(); 
-			} 
-		
-			if(!getport().equals("")){
-				proxyUrl += "&port=" + getport(); 
-			} 
-		
-			if(!getdriver().equals("")){
-				proxyUrl += "&driver=" + getdriver(); 
-			} 
-		
-			if(!getclass().equals("")){
-				proxyUrl += "&class=" + getclass(); 
-			} 
-		
-			if(!getusername().equals("")){
-				proxyUrl += "&username=" + getusername(); 
-			} 
-		
-			if(!getpassword().equals("")){
-				proxyUrl += "&password=" + getpassword(); 
-			} 
-		
-			if(!getencryptpassword().equals("")){
-				proxyUrl += "&encryptpassword=" + getencryptpassword(); 
-			} 
-		
-			if(!getdescription().equals("")){
-				proxyUrl += "&description=" + getdescription(); 
-			} 
-		
-			if(!getargs().equals("")){
-				proxyUrl += "&args=" + getargs(); 
-			} 
-		
-			if(!gettimeout().equals("")){
-				proxyUrl += "&timeout=" + gettimeout(); 
-			} 
-		
-			if(!getinterval().equals("")){
-				proxyUrl += "&interval=" + getinterval(); 
-			} 
-		
-			if(!getlogin_timeout().equals("")){
-				proxyUrl += "&login_timeout=" + getlogin_timeout(); 
-			} 
-		
-			if(!getbuffer().equals("")){
-				proxyUrl += "&buffer=" + getbuffer(); 
-			} 
-		
-			if(!getblob_buffer().equals("")){
-				proxyUrl += "&blob_buffer=" + getblob_buffer(); 
-			} 
-		
-			if(!getenablemaxconnections().equals("")){
-				proxyUrl += "&enablemaxconnections=" + getenablemaxconnections(); 
-			} 
-		
-			if(!getmaxconnections().equals("")){
-				proxyUrl += "&maxconnections=" + getmaxconnections(); 
-			} 
-		
-			if(!getpooling().equals("")){
-				proxyUrl += "&pooling=" + getpooling(); 
-			} 
-		
-			if(!getdisable().equals("")){
-				proxyUrl += "&disable=" + getdisable(); 
-			} 
-		
-			if(!getdisable_clob().equals("")){
-				proxyUrl += "&disable_clob=" + getdisable_clob(); 
-			} 
-		
-			if(!getdisable_blob().equals("")){
-				proxyUrl += "&disable_blob=" + getdisable_blob(); 
-			} 
-		
-			if(!getselect().equals("")){
-				proxyUrl += "&select=" + getselect(); 
-			} 
-		
-			if(!getcreate().equals("")){
-				proxyUrl += "&create=" + getcreate(); 
-			} 
-		
-			if(!getgrant().equals("")){
-				proxyUrl += "&grant=" + getgrant(); 
-			} 
-		
-			if(!getinsert().equals("")){
-				proxyUrl += "&insert=" + getinsert(); 
-			} 
-		
-			if(!getdrop().equals("")){
-				proxyUrl += "&drop=" + getdrop(); 
-			} 
-		
-			if(!getrevoke().equals("")){
-				proxyUrl += "&revoke=" + getrevoke(); 
-			} 
-		
-			if(!getupdate().equals("")){
-				proxyUrl += "&update=" + getupdate(); 
-			} 
-		
-			if(!getalter().equals("")){
-				proxyUrl += "&alter=" + getalter(); 
-			} 
-		
-			if(!getstoredproc().equals("")){
-				proxyUrl += "&storedproc=" + getstoredproc(); 
-			} 
-		
-			if(!getdelete().equals("")){
-				proxyUrl += "&delete=" + getdelete(); 
-			} 
-		
-			if(!getvalidationQuery().equals("")){
-				proxyUrl += "&validationQuery=" + getvalidationQuery(); 
-			} 
-		
-		
 		try{
+			
+				// get the login information from this project
+				String adminPassword = getProject().getProperty("adminPassword");
+				String adminUserId = getProject().getProperty("adminUserId");
+			
+			
+			// to make the http call we need to know at what URL the admin proxy is.
+			String proxyUrl = getProject().getProperty("rootUrl");
+			proxyUrl += "/proxy/datasourceProxy.cfc";
+			proxyUrl += "?method=setMySQL";
+			proxyUrl += "&returnformat=plain";
+			
+				proxyUrl += "&adminPassword=" + adminPassword;
+				if(!adminUserId.equals("")){
+					proxyUrl += "&adminUserId=" + adminUserId;
+				}
+			
+			
+			
+				if(!getname().equals("")){
+					proxyUrl += "&name=" + getname(); 
+				} 
+			
+				if(!gethost().equals("")){
+					proxyUrl += "&host=" + gethost(); 
+				} 
+			
+				if(!getdatabase().equals("")){
+					proxyUrl += "&database=" + getdatabase(); 
+				} 
+			
+				if(!getoriginaldsn().equals("")){
+					proxyUrl += "&originaldsn=" + getoriginaldsn(); 
+				} 
+			
+				if(!getport().equals("")){
+					proxyUrl += "&port=" + getport(); 
+				} 
+			
+				if(!getdriver().equals("")){
+					proxyUrl += "&driver=" + getdriver(); 
+				} 
+			
+				if(!getclass().equals("")){
+					proxyUrl += "&class=" + getclass(); 
+				} 
+			
+				if(!getusername().equals("")){
+					proxyUrl += "&username=" + getusername(); 
+				} 
+			
+				if(!getpassword().equals("")){
+					proxyUrl += "&password=" + getpassword(); 
+				} 
+			
+				if(!getencryptpassword().equals("")){
+					proxyUrl += "&encryptpassword=" + getencryptpassword(); 
+				} 
+			
+				if(!getdescription().equals("")){
+					proxyUrl += "&description=" + getdescription(); 
+				} 
+			
+				if(!getargs().equals("")){
+					proxyUrl += "&args=" + getargs(); 
+				} 
+			
+				if(!gettimeout().equals("")){
+					proxyUrl += "&timeout=" + gettimeout(); 
+				} 
+			
+				if(!getinterval().equals("")){
+					proxyUrl += "&interval=" + getinterval(); 
+				} 
+			
+				if(!getlogin_timeout().equals("")){
+					proxyUrl += "&login_timeout=" + getlogin_timeout(); 
+				} 
+			
+				if(!getbuffer().equals("")){
+					proxyUrl += "&buffer=" + getbuffer(); 
+				} 
+			
+				if(!getblob_buffer().equals("")){
+					proxyUrl += "&blob_buffer=" + getblob_buffer(); 
+				} 
+			
+				if(!getenablemaxconnections().equals("")){
+					proxyUrl += "&enablemaxconnections=" + getenablemaxconnections(); 
+				} 
+			
+				if(!getmaxconnections().equals("")){
+					proxyUrl += "&maxconnections=" + getmaxconnections(); 
+				} 
+			
+				if(!getpooling().equals("")){
+					proxyUrl += "&pooling=" + getpooling(); 
+				} 
+			
+				if(!getdisable().equals("")){
+					proxyUrl += "&disable=" + getdisable(); 
+				} 
+			
+				if(!getdisable_clob().equals("")){
+					proxyUrl += "&disable_clob=" + getdisable_clob(); 
+				} 
+			
+				if(!getdisable_blob().equals("")){
+					proxyUrl += "&disable_blob=" + getdisable_blob(); 
+				} 
+			
+				if(!getselect().equals("")){
+					proxyUrl += "&select=" + getselect(); 
+				} 
+			
+				if(!getcreate().equals("")){
+					proxyUrl += "&create=" + getcreate(); 
+				} 
+			
+				if(!getgrant().equals("")){
+					proxyUrl += "&grant=" + getgrant(); 
+				} 
+			
+				if(!getinsert().equals("")){
+					proxyUrl += "&insert=" + getinsert(); 
+				} 
+			
+				if(!getdrop().equals("")){
+					proxyUrl += "&drop=" + getdrop(); 
+				} 
+			
+				if(!getrevoke().equals("")){
+					proxyUrl += "&revoke=" + getrevoke(); 
+				} 
+			
+				if(!getupdate().equals("")){
+					proxyUrl += "&update=" + getupdate(); 
+				} 
+			
+				if(!getalter().equals("")){
+					proxyUrl += "&alter=" + getalter(); 
+				} 
+			
+				if(!getstoredproc().equals("")){
+					proxyUrl += "&storedproc=" + getstoredproc(); 
+				} 
+			
+				if(!getdelete().equals("")){
+					proxyUrl += "&delete=" + getdelete(); 
+				} 
+			
+				if(!getvalidationQuery().equals("")){
+					proxyUrl += "&validationQuery=" + getvalidationQuery(); 
+				} 
+			
+		
 			String result = getFromUrl(proxyUrl);
 			
 			
 				getProject().setProperty(getproperty(), result);
 			
-			
-			// check to see if we need to set a property
+					
+		} catch(NullPointerException e) { 
+			System.out.println("You must use the cflogin task before any other other adminapi tasks");
+			throw new BuildException(e.toString());
 		} catch(Exception e){
-			throw new BuildException(e.getMessage());
+			throw new BuildException(e.toString());
 		}
 		
 		
