@@ -12,6 +12,7 @@ public class cfsetUseOrb extends ProxyTask {
 	
 	
 	
+	
 		public void setuseOrb(String _useOrb) {
 			this._useOrb = _useOrb;
 		}
@@ -30,6 +31,8 @@ public class cfsetUseOrb extends ProxyTask {
 			return this._property;
 		}
 	
+	
+	
 		
 	public void execute() throws BuildException {
 		try{
@@ -37,10 +40,11 @@ public class cfsetUseOrb extends ProxyTask {
 				// get the login information from this project
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
+				String rootUrl = getProject().getProperty("rootUrl");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
-			String proxyUrl = getProject().getProperty("rootUrl");
+			String proxyUrl = rootUrl;
 			proxyUrl += "/proxy/extensionsProxy.cfc";
 			proxyUrl += "?method=setUseOrb";
 			proxyUrl += "&returnformat=plain";

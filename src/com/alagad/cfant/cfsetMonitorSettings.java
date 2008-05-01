@@ -10,6 +10,7 @@ public class cfsetMonitorSettings extends ProxyTask {
 	
 	
 	
+	
 		public void setsettings(String _settings) {
 			this._settings = _settings;
 		}
@@ -20,6 +21,8 @@ public class cfsetMonitorSettings extends ProxyTask {
 	
 	
 	
+	
+	
 		
 	public void execute() throws BuildException {
 		try{
@@ -27,10 +30,11 @@ public class cfsetMonitorSettings extends ProxyTask {
 				// get the login information from this project
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
+				String rootUrl = getProject().getProperty("rootUrl");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
-			String proxyUrl = getProject().getProperty("rootUrl");
+			String proxyUrl = rootUrl;
 			proxyUrl += "/proxy/servermonitoringProxy.cfc";
 			proxyUrl += "?method=setMonitorSettings";
 			proxyUrl += "&returnformat=plain";

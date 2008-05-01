@@ -17,6 +17,9 @@ public class cflogin extends ProxyTask {
 		private String _property = "";	
 	
 	
+		private String _rootUrl = "";	
+	
+	
 	
 		public void setadminPassword(String _adminPassword) {
 			this._adminPassword = _adminPassword;
@@ -60,13 +63,23 @@ public class cflogin extends ProxyTask {
 			return this._property;
 		}
 	
+	
+	
+		public void setrootUrl(String _rootUrl) {
+			this._rootUrl = _rootUrl;
+		}
+	
+		private String getrootUrl() {
+			return this._rootUrl;
+		}
+	
 		
 	public void execute() throws BuildException {
 		try{
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
-			String proxyUrl = getProject().getProperty("rootUrl");
+			String proxyUrl = getrootUrl();
 			proxyUrl += "/proxy/administratorProxy.cfc";
 			proxyUrl += "?method=login";
 			proxyUrl += "&returnformat=plain";
@@ -107,6 +120,7 @@ public class cflogin extends ProxyTask {
 			// set the login information into the project
 			getProject().setProperty("adminPassword", getadminPassword());
 			getProject().setProperty("adminUserId", getadminUserId());
+			getProject().setProperty("rootUrl", getrootUrl());
 		
 	}
 	

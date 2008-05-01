@@ -85,6 +85,9 @@ public class cf#component.functions[x].name# extends ProxyTask {
 	<cfif StructKeyExists(component.functions[x], "returnType") OR Left(component.functions[x].name, 3) IS "get">
 		private String _property = "";	
 	</cfif>
+	<cfif component.functions[x].name IS "login">
+		private String _rootUrl = "";	
+	</cfif>
 	
 	<cfloop from="1" to="#ArrayLen(component.functions[x].parameters)#" index="y">
 		public void set#component.functions[x].parameters[y].name#(String _#component.functions[x].parameters[y].name#) {
@@ -105,6 +108,16 @@ public class cf#component.functions[x].name# extends ProxyTask {
 			return this._property;
 		}
 	</cfif>
+	
+	<cfif component.functions[x].name IS "login">
+		public void setrootUrl(String _rootUrl) {
+			this._rootUrl = _rootUrl;
+		}
+	
+		private String getrootUrl() {
+			return this._rootUrl;
+		}
+	</cfif>
 		
 	public void execute() throws BuildException {
 		try{
@@ -112,10 +125,11 @@ public class cf#component.functions[x].name# extends ProxyTask {
 				// get the login information from this project
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
+				String rootUrl = getProject().getProperty("rootUrl");
 			</cfif>
 			
 			// to make the http call we need to know at what URL the admin proxy is.
-			String proxyUrl = getProject().getProperty("rootUrl");
+			String proxyUrl = <cfif component.functions[x].name IS "login">getrootUrl()<cfelse>rootUrl</cfif>;
 			proxyUrl += "/proxy/#componentName#Proxy.cfc";
 			proxyUrl += "?method=#component.functions[x].name#";
 			proxyUrl += "&returnformat=plain";
@@ -149,6 +163,7 @@ public class cf#component.functions[x].name# extends ProxyTask {
 			// set the login information into the project
 			getProject().setProperty("adminPassword", getadminPassword());
 			getProject().setProperty("adminUserId", getadminUserId());
+			getProject().setProperty("rootUrl", getrootUrl());
 		</cfif>
 	}
 	

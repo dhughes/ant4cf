@@ -14,6 +14,7 @@ public class cfdeleteDisabledCFTag extends ProxyTask {
 	
 	
 	
+	
 		public void setdirectory(String _directory) {
 			this._directory = _directory;
 		}
@@ -40,6 +41,8 @@ public class cfdeleteDisabledCFTag extends ProxyTask {
 			return this._property;
 		}
 	
+	
+	
 		
 	public void execute() throws BuildException {
 		try{
@@ -47,10 +50,11 @@ public class cfdeleteDisabledCFTag extends ProxyTask {
 				// get the login information from this project
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
+				String rootUrl = getProject().getProperty("rootUrl");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
-			String proxyUrl = getProject().getProperty("rootUrl");
+			String proxyUrl = rootUrl;
 			proxyUrl += "/proxy/securityProxy.cfc";
 			proxyUrl += "?method=deleteDisabledCFTag";
 			proxyUrl += "&returnformat=plain";

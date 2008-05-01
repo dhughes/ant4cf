@@ -12,6 +12,7 @@ public class cfgetProperty extends ProxyTask {
 	
 	
 	
+	
 		public void setpropertyName(String _propertyName) {
 			this._propertyName = _propertyName;
 		}
@@ -30,6 +31,8 @@ public class cfgetProperty extends ProxyTask {
 			return this._property;
 		}
 	
+	
+	
 		
 	public void execute() throws BuildException {
 		try{
@@ -37,10 +40,11 @@ public class cfgetProperty extends ProxyTask {
 				// get the login information from this project
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
+				String rootUrl = getProject().getProperty("rootUrl");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
-			String proxyUrl = getProject().getProperty("rootUrl");
+			String proxyUrl = rootUrl;
 			proxyUrl += "/proxy/flexProxy.cfc";
 			proxyUrl += "?method=getProperty";
 			proxyUrl += "&returnformat=plain";

@@ -12,6 +12,7 @@ public class cfsl54mlog extends ProxyTask {
 	
 	
 	
+	
 		public void setodbcdsn(String _odbcdsn) {
 			this._odbcdsn = _odbcdsn;
 		}
@@ -30,6 +31,8 @@ public class cfsl54mlog extends ProxyTask {
 	
 	
 	
+	
+	
 		
 	public void execute() throws BuildException {
 		try{
@@ -37,10 +40,11 @@ public class cfsl54mlog extends ProxyTask {
 				// get the login information from this project
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
+				String rootUrl = getProject().getProperty("rootUrl");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
-			String proxyUrl = getProject().getProperty("rootUrl");
+			String proxyUrl = rootUrl;
 			proxyUrl += "/proxy/datasourceProxy.cfc";
 			proxyUrl += "?method=sl54mlog";
 			proxyUrl += "&returnformat=plain";

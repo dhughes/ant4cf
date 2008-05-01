@@ -12,6 +12,7 @@ public class cfcanAccessPage extends ProxyTask {
 	
 	
 	
+	
 		public void setpage(String _page) {
 			this._page = _page;
 		}
@@ -30,6 +31,8 @@ public class cfcanAccessPage extends ProxyTask {
 			return this._property;
 		}
 	
+	
+	
 		
 	public void execute() throws BuildException {
 		try{
@@ -37,10 +40,11 @@ public class cfcanAccessPage extends ProxyTask {
 				// get the login information from this project
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
+				String rootUrl = getProject().getProperty("rootUrl");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
-			String proxyUrl = getProject().getProperty("rootUrl");
+			String proxyUrl = rootUrl;
 			proxyUrl += "/proxy/accessmanagerProxy.cfc";
 			proxyUrl += "?method=canAccessPage";
 			proxyUrl += "&returnformat=plain";

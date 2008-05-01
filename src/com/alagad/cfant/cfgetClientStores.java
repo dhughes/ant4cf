@@ -12,6 +12,7 @@ public class cfgetClientStores extends ProxyTask {
 	
 	
 	
+	
 		public void setname(String _name) {
 			this._name = _name;
 		}
@@ -30,6 +31,8 @@ public class cfgetClientStores extends ProxyTask {
 			return this._property;
 		}
 	
+	
+	
 		
 	public void execute() throws BuildException {
 		try{
@@ -37,10 +40,11 @@ public class cfgetClientStores extends ProxyTask {
 				// get the login information from this project
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
+				String rootUrl = getProject().getProperty("rootUrl");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
-			String proxyUrl = getProject().getProperty("rootUrl");
+			String proxyUrl = rootUrl;
 			proxyUrl += "/proxy/runtimeProxy.cfc";
 			proxyUrl += "?method=getClientStores";
 			proxyUrl += "&returnformat=plain";

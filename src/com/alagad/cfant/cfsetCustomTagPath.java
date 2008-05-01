@@ -12,6 +12,7 @@ public class cfsetCustomTagPath extends ProxyTask {
 	
 	
 	
+	
 		public void setpath(String _path) {
 			this._path = _path;
 		}
@@ -30,6 +31,8 @@ public class cfsetCustomTagPath extends ProxyTask {
 			return this._property;
 		}
 	
+	
+	
 		
 	public void execute() throws BuildException {
 		try{
@@ -37,10 +40,11 @@ public class cfsetCustomTagPath extends ProxyTask {
 				// get the login information from this project
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
+				String rootUrl = getProject().getProperty("rootUrl");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
-			String proxyUrl = getProject().getProperty("rootUrl");
+			String proxyUrl = rootUrl;
 			proxyUrl += "/proxy/extensionsProxy.cfc";
 			proxyUrl += "?method=setCustomTagPath";
 			proxyUrl += "&returnformat=plain";

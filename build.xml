@@ -75,19 +75,10 @@
 		<taskdef name="cfverifyDsn" classname="com.alagad.cfant.cfverifyDsn" classpath="${thisDir}/bin" />
 		<taskdef name="cflogin" classname="com.alagad.cfant.cflogin" classpath="${thisDir}/bin" />
 		<taskdef name="cfgetCurrentIP" classname="com.alagad.cfant.cfgetCurrentIP" classpath="${thisDir}/bin"/>
-		<taskdef name="cfsetGatewayInstance" classname="com.alagad.cfant.cfsetGatewayInstance" classpath="${thisDir}/bin"/>
-		<taskdef name="cfstartGatewayInstance" classname="com.alagad.cfant.cfstartGatewayInstance" classpath="${thisDir}/bin"/>
 
 		<!-- login to the cfadmin -->
-		<cflogin adminPassword="P0t1Lok9i" />
+		<cflogin adminPassword="P0t1Lok9i" rootUrl="${rootUrl}" />
 		
-		<cfsetGatewayInstance gatewayid="TimeTrackerBotStaging" type="XMPP"
-					cfcpaths="/Users/dhughes/Sites/VirtualPM/VirtualPM/www/PM/gw/TimeTrackerGateway.cfc"
-					configurationpath="/Users/dhughes/Sites/VirtualPM/VirtualPM/www/PM/config/imgateway.cfg"
-					mode="AUTO" />
-		
-		<cfstartGatewayInstance gatewayid="TimeTrackerBotStaging" />
-				
 		<!-- get the server's ip -->
 		<cfgetCurrentIP property="IP" />
 		<echo message="Server IP: ${IP}" />

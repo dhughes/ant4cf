@@ -10,6 +10,7 @@ public class cfupdateAlias extends ProxyTask {
 	
 	
 	
+	
 		public void setalias(String _alias) {
 			this._alias = _alias;
 		}
@@ -20,6 +21,8 @@ public class cfupdateAlias extends ProxyTask {
 	
 	
 	
+	
+	
 		
 	public void execute() throws BuildException {
 		try{
@@ -27,10 +30,11 @@ public class cfupdateAlias extends ProxyTask {
 				// get the login information from this project
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
+				String rootUrl = getProject().getProperty("rootUrl");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
-			String proxyUrl = getProject().getProperty("rootUrl");
+			String proxyUrl = rootUrl;
 			proxyUrl += "/proxy/servermonitoringProxy.cfc";
 			proxyUrl += "?method=updateAlias";
 			proxyUrl += "&returnformat=plain";

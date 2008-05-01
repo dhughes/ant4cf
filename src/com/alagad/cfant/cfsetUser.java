@@ -26,6 +26,7 @@ public class cfsetUser extends ProxyTask {
 	
 	
 	
+	
 		public void setusername(String _username) {
 			this._username = _username;
 		}
@@ -100,6 +101,8 @@ public class cfsetUser extends ProxyTask {
 			return this._property;
 		}
 	
+	
+	
 		
 	public void execute() throws BuildException {
 		try{
@@ -107,10 +110,11 @@ public class cfsetUser extends ProxyTask {
 				// get the login information from this project
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
+				String rootUrl = getProject().getProperty("rootUrl");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
-			String proxyUrl = getProject().getProperty("rootUrl");
+			String proxyUrl = rootUrl;
 			proxyUrl += "/proxy/securityProxy.cfc";
 			proxyUrl += "?method=setUser";
 			proxyUrl += "&returnformat=plain";

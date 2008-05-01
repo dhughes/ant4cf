@@ -12,6 +12,7 @@ public class cfgetDriverDetails extends ProxyTask {
 	
 	
 	
+	
 		public void setdriverName(String _driverName) {
 			this._driverName = _driverName;
 		}
@@ -30,6 +31,8 @@ public class cfgetDriverDetails extends ProxyTask {
 			return this._property;
 		}
 	
+	
+	
 		
 	public void execute() throws BuildException {
 		try{
@@ -37,10 +40,11 @@ public class cfgetDriverDetails extends ProxyTask {
 				// get the login information from this project
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
+				String rootUrl = getProject().getProperty("rootUrl");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
-			String proxyUrl = getProject().getProperty("rootUrl");
+			String proxyUrl = rootUrl;
 			proxyUrl += "/proxy/datasourceProxy.cfc";
 			proxyUrl += "?method=getDriverDetails";
 			proxyUrl += "&returnformat=plain";

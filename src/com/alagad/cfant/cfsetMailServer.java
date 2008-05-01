@@ -20,6 +20,7 @@ public class cfsetMailServer extends ProxyTask {
 	
 	
 	
+	
 		public void setserver(String _server) {
 			this._server = _server;
 		}
@@ -70,6 +71,8 @@ public class cfsetMailServer extends ProxyTask {
 			return this._property;
 		}
 	
+	
+	
 		
 	public void execute() throws BuildException {
 		try{
@@ -77,10 +80,11 @@ public class cfsetMailServer extends ProxyTask {
 				// get the login information from this project
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
+				String rootUrl = getProject().getProperty("rootUrl");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
-			String proxyUrl = getProject().getProperty("rootUrl");
+			String proxyUrl = rootUrl;
 			proxyUrl += "/proxy/mailProxy.cfc";
 			proxyUrl += "?method=setMailServer";
 			proxyUrl += "&returnformat=plain";
