@@ -1,7 +1,7 @@
 <project name="CFAnt Package Script" default="Package" basedir="..">
 
 	<target name="Package">
-		<zip destfile="cfant/cfant.zip" basedir="cfant" excludes="*.svn, packagecfant.xml, cfant.zip" />
+		<zip destfile="cfant/cfant.zip" basedir="cfant" excludes="*.svn, packagecfant.xml, cfant.zip, .classpath, .project" />
 	</target>
 	
 </project>

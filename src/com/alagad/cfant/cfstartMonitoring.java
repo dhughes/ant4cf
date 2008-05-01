@@ -21,6 +21,8 @@ public class cfstartMonitoring extends ProxyTask {
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
 				String rootUrl = getProject().getProperty("rootUrl");
+				
+				System.out.println(rootUrl);
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
