@@ -28,12 +28,17 @@
 		<input message="Please enter CFAdmin password:" addproperty="CFADMINPASSWORD" />
 		
 		<!--
+			Where is Ant on the remote machine?  Provide only the directory, not the executable name
+		-->
+		<property name="antPath" value="/usr/bin/" />
+		
+		<!--
 			Todo: Run the script
 		
 			You will need to pass any arguments to the remote script that need to be passed.  Note that TARGET must be provided.
 			Anything else you provide will be passed as inputs to the remotely executed ant target. 
 		-->
-		<property name="remoteBuildRunnerUrl" value="${buildUrl}?TARGET=${TARGET}&amp;CFADMINPASSWORD=${CFADMINPASSWORD}&amp;SVNUSERNAME=${SVNUSERNAME}&amp;SVNPASSWORD=${SVNPASSWORD}" />
+		<property name="remoteBuildRunnerUrl" value="${buildUrl}?antPath=${antPath}&amp;TARGET=${TARGET}&amp;CFADMINPASSWORD=${CFADMINPASSWORD}&amp;SVNUSERNAME=${SVNUSERNAME}&amp;SVNPASSWORD=${SVNPASSWORD}" />
 		<echo message="Remotely Executing Build Via URL: ${remoteBuildRunnerUrl}" />
 		<get src="${remoteBuildRunnerUrl}" verbose="true" dest="${thisDir}/result.html"/>
 		

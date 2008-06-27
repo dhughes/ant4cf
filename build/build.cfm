@@ -2,7 +2,9 @@
 	<!--- parse the url arguments --->
 	<cfset arguments = "" />
 	<cfloop collection="#url#" item="var">
-		<cfset arguments = ListAppend(arguments, "-D#var#=#url[var]#" , " ") />
+		<cfif var IS NOT "antPath">
+			<cfset arguments = ListAppend(arguments, "-D#var#=#url[var]#" , " ") />
+		</cfif>
 	</cfloop>
 	
 	<!---
@@ -11,7 +13,12 @@
 		own process to run the executable.
 	--->
 	<cfset Runtime = CreateObject("java", "java.lang.Runtime").getRuntime() />
-	<cfset Process = Runtime.exec("ant -f #expandPath('../build.xml')# #url.target# #arguments#") />
+	<cfif server.os.name CONTAINS "windows">
+		<cfset exe = "ant.bat" />
+	<cfelse>
+		<cfset exe = "ant" />
+	</cfif>
+	<cfset Process = Runtime.exec("#url.antPath##exe# -f #expandPath('../build.xml')# #url.target# #arguments#") />
 	
 	<cfset output = "" />
 	
