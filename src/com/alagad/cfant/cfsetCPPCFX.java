@@ -81,8 +81,7 @@ public class cfsetCPPCFX extends ProxyTask {
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
 				String rootUrl = getProject().getProperty("rootUrl");
-				
-				System.out.println(rootUrl);
+				String debug = getProject().getProperty("debug");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
@@ -100,26 +99,34 @@ public class cfsetCPPCFX extends ProxyTask {
 			
 				if(!getname().equals("")){
 					proxyUrl += "&name=" + getname(); 
-				} 
+				}
 			
 				if(!getlibrary().equals("")){
 					proxyUrl += "&library=" + getlibrary(); 
-				} 
+				}
 			
 				if(!getdescription().equals("")){
 					proxyUrl += "&description=" + getdescription(); 
-				} 
+				}
 			
 				if(!getcache().equals("")){
 					proxyUrl += "&cache=" + getcache(); 
-				} 
+				}
 			
 				if(!getprocedure().equals("")){
 					proxyUrl += "&procedure=" + getprocedure(); 
-				} 
+				}
 			
-		
+			
+			if(Boolean.parseBoolean(debug)){
+				System.out.println("Running Task 'setCPPCFX' via url: " + proxyUrl);
+			}
+			
 			String result = getFromUrl(proxyUrl);
+			
+			System.out.println("Result:"  + result);
+			
+			
 			
 			
 				getProject().setProperty(getproperty(), result);

@@ -91,8 +91,7 @@ public class cfaddDebugEvent extends ProxyTask {
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
 				String rootUrl = getProject().getProperty("rootUrl");
-				
-				System.out.println(rootUrl);
+				String debug = getProject().getProperty("debug");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
@@ -110,30 +109,38 @@ public class cfaddDebugEvent extends ProxyTask {
 			
 				if(!gettype().equals("")){
 					proxyUrl += "&type=" + gettype(); 
-				} 
+				}
 			
 				if(!getmessage().equals("")){
 					proxyUrl += "&message=" + getmessage(); 
-				} 
+				}
 			
 				if(!getpriority().equals("")){
 					proxyUrl += "&priority=" + getpriority(); 
-				} 
+				}
 			
 				if(!getstartTime().equals("")){
 					proxyUrl += "&startTime=" + getstartTime(); 
-				} 
+				}
 			
 				if(!getendTime().equals("")){
 					proxyUrl += "&endTime=" + getendTime(); 
-				} 
+				}
 			
 				if(!gettotal().equals("")){
 					proxyUrl += "&total=" + gettotal(); 
-				} 
+				}
 			
-		
+			
+			if(Boolean.parseBoolean(debug)){
+				System.out.println("Running Task 'addDebugEvent' via url: " + proxyUrl);
+			}
+			
 			String result = getFromUrl(proxyUrl);
+			
+			System.out.println("Result:"  + result);
+			
+			
 			
 			
 				getProject().setProperty(getproperty(), result);

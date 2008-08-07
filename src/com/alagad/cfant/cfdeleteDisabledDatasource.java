@@ -51,8 +51,7 @@ public class cfdeleteDisabledDatasource extends ProxyTask {
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
 				String rootUrl = getProject().getProperty("rootUrl");
-				
-				System.out.println(rootUrl);
+				String debug = getProject().getProperty("debug");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
@@ -70,14 +69,22 @@ public class cfdeleteDisabledDatasource extends ProxyTask {
 			
 				if(!getdirectory().equals("")){
 					proxyUrl += "&directory=" + getdirectory(); 
-				} 
+				}
 			
 				if(!getdatasource().equals("")){
 					proxyUrl += "&datasource=" + getdatasource(); 
-				} 
+				}
 			
-		
+			
+			if(Boolean.parseBoolean(debug)){
+				System.out.println("Running Task 'deleteDisabledDatasource' via url: " + proxyUrl);
+			}
+			
 			String result = getFromUrl(proxyUrl);
+			
+			System.out.println("Result:"  + result);
+			
+			
 			
 			
 				getProject().setProperty(getproperty(), result);

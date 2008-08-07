@@ -61,8 +61,7 @@ public class cfsetJvmConfig extends ProxyTask {
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
 				String rootUrl = getProject().getProperty("rootUrl");
-				
-				System.out.println(rootUrl);
+				String debug = getProject().getProperty("debug");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
@@ -80,18 +79,26 @@ public class cfsetJvmConfig extends ProxyTask {
 			
 				if(!getminHeapArg().equals("")){
 					proxyUrl += "&minHeapArg=" + getminHeapArg(); 
-				} 
+				}
 			
 				if(!getmaxHeapArg().equals("")){
 					proxyUrl += "&maxHeapArg=" + getmaxHeapArg(); 
-				} 
+				}
 			
 				if(!getjvmArgs().equals("")){
 					proxyUrl += "&jvmArgs=" + getjvmArgs(); 
-				} 
+				}
 			
-		
+			
+			if(Boolean.parseBoolean(debug)){
+				System.out.println("Running Task 'setJvmConfig' via url: " + proxyUrl);
+			}
+			
 			String result = getFromUrl(proxyUrl);
+			
+			System.out.println("Result:"  + result);
+			
+			
 			
 			
 				getProject().setProperty(getproperty(), result);

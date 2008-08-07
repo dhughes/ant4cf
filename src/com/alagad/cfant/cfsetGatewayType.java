@@ -81,8 +81,7 @@ public class cfsetGatewayType extends ProxyTask {
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
 				String rootUrl = getProject().getProperty("rootUrl");
-				
-				System.out.println(rootUrl);
+				String debug = getProject().getProperty("debug");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
@@ -100,26 +99,34 @@ public class cfsetGatewayType extends ProxyTask {
 			
 				if(!gettype().equals("")){
 					proxyUrl += "&type=" + gettype(); 
-				} 
+				}
 			
 				if(!getdescription().equals("")){
 					proxyUrl += "&description=" + getdescription(); 
-				} 
+				}
 			
 				if(!getclass().equals("")){
 					proxyUrl += "&class=" + getclass(); 
-				} 
+				}
 			
 				if(!gettimeout().equals("")){
 					proxyUrl += "&timeout=" + gettimeout(); 
-				} 
+				}
 			
 				if(!getkillOnTimeout().equals("")){
 					proxyUrl += "&killOnTimeout=" + getkillOnTimeout(); 
-				} 
+				}
 			
-		
+			
+			if(Boolean.parseBoolean(debug)){
+				System.out.println("Running Task 'setGatewayType' via url: " + proxyUrl);
+			}
+			
 			String result = getFromUrl(proxyUrl);
+			
+			System.out.println("Result:"  + result);
+			
+			
 			
 			
 				getProject().setProperty(getproperty(), result);

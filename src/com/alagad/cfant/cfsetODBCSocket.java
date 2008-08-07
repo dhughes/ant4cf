@@ -391,8 +391,7 @@ public class cfsetODBCSocket extends ProxyTask {
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
 				String rootUrl = getProject().getProperty("rootUrl");
-				
-				System.out.println(rootUrl);
+				String debug = getProject().getProperty("debug");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
@@ -410,150 +409,158 @@ public class cfsetODBCSocket extends ProxyTask {
 			
 				if(!getname().equals("")){
 					proxyUrl += "&name=" + getname(); 
-				} 
+				}
 			
 				if(!getdatasource().equals("")){
 					proxyUrl += "&datasource=" + getdatasource(); 
-				} 
+				}
 			
 				if(!getuseTrustedConnection().equals("")){
 					proxyUrl += "&useTrustedConnection=" + getuseTrustedConnection(); 
-				} 
+				}
 			
 				if(!getusername().equals("")){
 					proxyUrl += "&username=" + getusername(); 
-				} 
+				}
 			
 				if(!getpassword().equals("")){
 					proxyUrl += "&password=" + getpassword(); 
-				} 
+				}
 			
 				if(!getencryptpassword().equals("")){
 					proxyUrl += "&encryptpassword=" + getencryptpassword(); 
-				} 
+				}
 			
 				if(!gethost().equals("")){
 					proxyUrl += "&host=" + gethost(); 
-				} 
+				}
 			
 				if(!getoriginaldsn().equals("")){
 					proxyUrl += "&originaldsn=" + getoriginaldsn(); 
-				} 
+				}
 			
 				if(!getport().equals("")){
 					proxyUrl += "&port=" + getport(); 
-				} 
+				}
 			
 				if(!getdriver().equals("")){
 					proxyUrl += "&driver=" + getdriver(); 
-				} 
+				}
 			
 				if(!getclass().equals("")){
 					proxyUrl += "&class=" + getclass(); 
-				} 
+				}
 			
 				if(!getdescription().equals("")){
 					proxyUrl += "&description=" + getdescription(); 
-				} 
+				}
 			
 				if(!getargs().equals("")){
 					proxyUrl += "&args=" + getargs(); 
-				} 
+				}
 			
 				if(!getTimeStampAsString().equals("")){
 					proxyUrl += "&TimeStampAsString=" + getTimeStampAsString(); 
-				} 
+				}
 			
 				if(!gettimeout().equals("")){
 					proxyUrl += "&timeout=" + gettimeout(); 
-				} 
+				}
 			
 				if(!getinterval().equals("")){
 					proxyUrl += "&interval=" + getinterval(); 
-				} 
+				}
 			
 				if(!getlogin_timeout().equals("")){
 					proxyUrl += "&login_timeout=" + getlogin_timeout(); 
-				} 
+				}
 			
 				if(!getbuffer().equals("")){
 					proxyUrl += "&buffer=" + getbuffer(); 
-				} 
+				}
 			
 				if(!getblob_buffer().equals("")){
 					proxyUrl += "&blob_buffer=" + getblob_buffer(); 
-				} 
+				}
 			
 				if(!getenablemaxconnections().equals("")){
 					proxyUrl += "&enablemaxconnections=" + getenablemaxconnections(); 
-				} 
+				}
 			
 				if(!getmaxconnections().equals("")){
 					proxyUrl += "&maxconnections=" + getmaxconnections(); 
-				} 
+				}
 			
 				if(!getpooling().equals("")){
 					proxyUrl += "&pooling=" + getpooling(); 
-				} 
+				}
 			
 				if(!getdisable().equals("")){
 					proxyUrl += "&disable=" + getdisable(); 
-				} 
+				}
 			
 				if(!getdisable_clob().equals("")){
 					proxyUrl += "&disable_clob=" + getdisable_clob(); 
-				} 
+				}
 			
 				if(!getdisable_blob().equals("")){
 					proxyUrl += "&disable_blob=" + getdisable_blob(); 
-				} 
+				}
 			
 				if(!getselect().equals("")){
 					proxyUrl += "&select=" + getselect(); 
-				} 
+				}
 			
 				if(!getcreate().equals("")){
 					proxyUrl += "&create=" + getcreate(); 
-				} 
+				}
 			
 				if(!getgrant().equals("")){
 					proxyUrl += "&grant=" + getgrant(); 
-				} 
+				}
 			
 				if(!getinsert().equals("")){
 					proxyUrl += "&insert=" + getinsert(); 
-				} 
+				}
 			
 				if(!getdrop().equals("")){
 					proxyUrl += "&drop=" + getdrop(); 
-				} 
+				}
 			
 				if(!getrevoke().equals("")){
 					proxyUrl += "&revoke=" + getrevoke(); 
-				} 
+				}
 			
 				if(!getupdate().equals("")){
 					proxyUrl += "&update=" + getupdate(); 
-				} 
+				}
 			
 				if(!getalter().equals("")){
 					proxyUrl += "&alter=" + getalter(); 
-				} 
+				}
 			
 				if(!getstoredproc().equals("")){
 					proxyUrl += "&storedproc=" + getstoredproc(); 
-				} 
+				}
 			
 				if(!getdelete().equals("")){
 					proxyUrl += "&delete=" + getdelete(); 
-				} 
+				}
 			
 				if(!getvalidationQuery().equals("")){
 					proxyUrl += "&validationQuery=" + getvalidationQuery(); 
-				} 
+				}
 			
-		
+			
+			if(Boolean.parseBoolean(debug)){
+				System.out.println("Running Task 'setODBCSocket' via url: " + proxyUrl);
+			}
+			
 			String result = getFromUrl(proxyUrl);
+			
+			System.out.println("Result:"  + result);
+			
+			
 			
 			
 				getProject().setProperty(getproperty(), result);

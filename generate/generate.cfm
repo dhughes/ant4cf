@@ -87,6 +87,8 @@ public class cf#component.functions[x].name# extends ProxyTask {
 	</cfif>
 	<cfif component.functions[x].name IS "login">
 		private String _rootUrl = "";	
+		
+		private String _debug = "false";
 	</cfif>
 	
 	<cfloop from="1" to="#ArrayLen(component.functions[x].parameters)#" index="y">
@@ -117,6 +119,14 @@ public class cf#component.functions[x].name# extends ProxyTask {
 		private String getrootUrl() {
 			return this._rootUrl;
 		}
+		
+		public void setdebug(String _debug) {
+			this._debug = _debug;
+		}
+	
+		private String getdebug() {
+			return this._debug;
+		}
 	</cfif>
 		
 	public void execute() throws BuildException {
@@ -126,8 +136,9 @@ public class cf#component.functions[x].name# extends ProxyTask {
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
 				String rootUrl = getProject().getProperty("rootUrl");
-				
-				System.out.println(rootUrl);
+				String debug = getProject().getProperty("debug");
+			<cfelse>
+				String debug = getdebug();
 			</cfif>
 			
 			// to make the http call we need to know at what URL the admin proxy is.
@@ -145,10 +156,22 @@ public class cf#component.functions[x].name# extends ProxyTask {
 			<cfloop from="1" to="#ArrayLen(component.functions[x].parameters)#" index="y">
 				if(!get#component.functions[x].parameters[y].name#().equals("")){
 					proxyUrl += "&#component.functions[x].parameters[y].name#=" + get#component.functions[x].parameters[y].name#(); 
-				} 
+				}
 			</cfloop>
-		
+			
+			if(Boolean.parseBoolean(debug)){
+				System.out.println("Running Task '#component.functions[x].name#' via url: " + proxyUrl);
+			}
+			
 			String result = getFromUrl(proxyUrl);
+			
+			System.out.println("Result:"  + result);
+			
+			<cfif component.functions[x].name IS "login">
+				if(result == "false"){
+					throw new Exception("Login to ColdFusion Admin failed.");
+				}
+			</cfif>
 			
 			<cfif StructKeyExists(component.functions[x], "returnType") OR Left(component.functions[x].name, 3) IS "get">
 				getProject().setProperty(getproperty(), result);
@@ -166,6 +189,7 @@ public class cf#component.functions[x].name# extends ProxyTask {
 			getProject().setProperty("adminPassword", getadminPassword());
 			getProject().setProperty("adminUserId", getadminUserId());
 			getProject().setProperty("rootUrl", getrootUrl());
+			getProject().setProperty("debug", getdebug());
 		</cfif>
 	}
 	

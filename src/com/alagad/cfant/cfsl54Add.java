@@ -61,8 +61,7 @@ public class cfsl54Add extends ProxyTask {
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
 				String rootUrl = getProject().getProperty("rootUrl");
-				
-				System.out.println(rootUrl);
+				String debug = getProject().getProperty("debug");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
@@ -80,22 +79,30 @@ public class cfsl54Add extends ProxyTask {
 			
 				if(!getdsn().equals("")){
 					proxyUrl += "&dsn=" + getdsn(); 
-				} 
+				}
 			
 				if(!getodbcdsn().equals("")){
 					proxyUrl += "&odbcdsn=" + getodbcdsn(); 
-				} 
+				}
 			
 				if(!getconnectString().equals("")){
 					proxyUrl += "&connectString=" + getconnectString(); 
-				} 
+				}
 			
 				if(!getTimeStampAsString().equals("")){
 					proxyUrl += "&TimeStampAsString=" + getTimeStampAsString(); 
-				} 
+				}
 			
-		
+			
+			if(Boolean.parseBoolean(debug)){
+				System.out.println("Running Task 'sl54Add' via url: " + proxyUrl);
+			}
+			
 			String result = getFromUrl(proxyUrl);
+			
+			System.out.println("Result:"  + result);
+			
+			
 			
 			
 					

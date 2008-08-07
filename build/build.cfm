@@ -50,5 +50,8 @@
 	
 	</cfloop>
 </cflock>
-	
-<cfcontent reset="true" /><cfoutput>#output#</cfoutput>
+
+<cfcontent reset="true" /><cfoutput><pre>
+#output#
+(RAN: #url.antPath##exe# -f #expandPath('../build.xml')# #url.target# #arguments#)
+</pre></cfoutput>

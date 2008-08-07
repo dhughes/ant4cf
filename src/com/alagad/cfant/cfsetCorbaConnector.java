@@ -81,8 +81,7 @@ public class cfsetCorbaConnector extends ProxyTask {
 				String adminPassword = getProject().getProperty("adminPassword");
 				String adminUserId = getProject().getProperty("adminUserId");
 				String rootUrl = getProject().getProperty("rootUrl");
-				
-				System.out.println(rootUrl);
+				String debug = getProject().getProperty("debug");
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
@@ -100,26 +99,34 @@ public class cfsetCorbaConnector extends ProxyTask {
 			
 				if(!getname().equals("")){
 					proxyUrl += "&name=" + getname(); 
-				} 
+				}
 			
 				if(!getoldname().equals("")){
 					proxyUrl += "&oldname=" + getoldname(); 
-				} 
+				}
 			
 				if(!getclassname().equals("")){
 					proxyUrl += "&classname=" + getclassname(); 
-				} 
+				}
 			
 				if(!getclasspath().equals("")){
 					proxyUrl += "&classpath=" + getclasspath(); 
-				} 
+				}
 			
 				if(!getpropertyfile().equals("")){
 					proxyUrl += "&propertyfile=" + getpropertyfile(); 
-				} 
+				}
 			
-		
+			
+			if(Boolean.parseBoolean(debug)){
+				System.out.println("Running Task 'setCorbaConnector' via url: " + proxyUrl);
+			}
+			
 			String result = getFromUrl(proxyUrl);
+			
+			System.out.println("Result:"  + result);
+			
+			
 			
 			
 				getProject().setProperty(getproperty(), result);

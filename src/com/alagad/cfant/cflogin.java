@@ -18,6 +18,8 @@ public class cflogin extends ProxyTask {
 	
 	
 		private String _rootUrl = "";	
+		
+		private String _debug = "false";
 	
 	
 	
@@ -72,10 +74,20 @@ public class cflogin extends ProxyTask {
 		private String getrootUrl() {
 			return this._rootUrl;
 		}
+		
+		public void setdebug(String _debug) {
+			this._debug = _debug;
+		}
+	
+		private String getdebug() {
+			return this._debug;
+		}
 	
 		
 	public void execute() throws BuildException {
 		try{
+			
+				String debug = getdebug();
 			
 			
 			// to make the http call we need to know at what URL the admin proxy is.
@@ -88,22 +100,34 @@ public class cflogin extends ProxyTask {
 			
 				if(!getadminPassword().equals("")){
 					proxyUrl += "&adminPassword=" + getadminPassword(); 
-				} 
+				}
 			
 				if(!getadminUserId().equals("")){
 					proxyUrl += "&adminUserId=" + getadminUserId(); 
-				} 
+				}
 			
 				if(!getsalt().equals("")){
 					proxyUrl += "&salt=" + getsalt(); 
-				} 
+				}
 			
 				if(!getrdsPasswordAllowed().equals("")){
 					proxyUrl += "&rdsPasswordAllowed=" + getrdsPasswordAllowed(); 
-				} 
+				}
 			
-		
+			
+			if(Boolean.parseBoolean(debug)){
+				System.out.println("Running Task 'login' via url: " + proxyUrl);
+			}
+			
 			String result = getFromUrl(proxyUrl);
+			
+			System.out.println("Result:"  + result);
+			
+			
+				if(result == "false"){
+					throw new Exception("Login to ColdFusion Admin failed.");
+				}
+			
 			
 			
 				getProject().setProperty(getproperty(), result);
@@ -121,6 +145,7 @@ public class cflogin extends ProxyTask {
 			getProject().setProperty("adminPassword", getadminPassword());
 			getProject().setProperty("adminUserId", getadminUserId());
 			getProject().setProperty("rootUrl", getrootUrl());
+			getProject().setProperty("debug", getdebug());
 		
 	}
 	
