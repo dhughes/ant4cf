@@ -1,0 +1,28 @@
+<project name="Test Script" default="Build">
+	
+	<target name="Build">
+
+		<input message="Please enter CFAdmin password:" addproperty="cfAdminPassword" />
+
+		<property name="foo" value="DOUG WAS HERE!!!"/>
+		<property name="bar" value="wooot"/>
+		
+		<taskdef name="configure" classname="com.alagad.ant4cf.Configure" classpath="antlib/ant4cf-java-2.0-SNAPSHOT-jar-with-dependencies.jar" />
+		<taskdef name="remoteant" classname="com.alagad.ant4cf.RemoteAnt" classpath="antlib/ant4cf-java-2.0-SNAPSHOT-jar-with-dependencies.jar" />
+		<taskdef name="service" classname="com.alagad.ant4cf.Service" classpath="antlib/ant4cf-java-2.0-SNAPSHOT-jar-with-dependencies.jar" />
+		
+		<configure ant4cfUrl="http://ant4cf-test/CFIDE/ant4cf" adminPassword="${cfAdminPassword}" />
+		
+		<remoteant antfile="remoteBuild.xml" debug="true" properties="foo,cfAdminPassword,bar" timeout="70" />
+		
+		<service component="adminapi.801.extensionsProxy" method="setMapping" property="result">
+			<argument name="mapName" value="test123" />
+			<argument name="mapPath" value="/Users/dhughes/Sites/ant4cf/ant4cf-cfml/src/main/webapp/CFIDE/ant4cf/services/adminapi900" />
+		</service>
+		
+		<echo message="result: ${result}" />
+		
+	</target>
+	
+	
+</project>

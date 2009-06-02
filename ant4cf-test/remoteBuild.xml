@@ -1,0 +1,25 @@
+<project name="Test Script" default="BuildRemote">
+	
+	<target name="BuildRemote">
+		<!-- any  tasks loaded just use classes from the lib directory (even ant4cf?) -->
+		<taskdef name="configure" classname="com.alagad.ant4cf.Configure" classpath="antlib/ant4cf-java-2.0-SNAPSHOT-jar-with-dependencies.jar" />
+		<taskdef name="service" classname="com.alagad.ant4cf.Service" classpath="antlib/ant4cf-java-2.0-SNAPSHOT-jar-with-dependencies.jar" />
+			
+		<echo message="test1" />
+		<echo message="test2 ${foo}" />
+		<echo message="test3 ${bar}" />
+
+		<taskdef name="configure" classname="com.alagad.ant4cf.Configure" classpath="target/classes" />
+
+		<configure ant4cfUrl="http://ant4cf-test/CFIDE/ant4cf" adminPassword="${cfAdminPassword}" />
+		
+		<service component="adminapi.801.extensionsProxy" method="setMapping" property="result">
+			<argument name="mapName" value="test234" />
+			<argument name="mapPath" value="/Users/dhughes/Sites/ant4cf/ant4cf-cfml/src/main/webapp/CFIDE/ant4cf/services/adminapi900" />
+		</service>
+		
+		<echo message="result: ${result}" />
+		
+	</target>
+	
+</project>
