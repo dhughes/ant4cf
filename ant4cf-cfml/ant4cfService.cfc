@@ -93,14 +93,15 @@
 		
 		<cfset var session = getSession(arguments.sessionId) />
 		<cfset var pathToAnt = getProperty("pathToAnt") />
-		<cfset var String = CreateObject("Java", "java.lang.Class").forName("java.lang.String") />
-    	<cfset var EmptyArrayOfStrings = CreateObject("Java", "java.lang.reflect.Array").newInstance(String, 0) />
+		<!--- <cfset var String = CreateObject("Java", "java.lang.Class").forName("java.lang.String") />
+    	<cfset var EmptyArrayOfStrings = CreateObject("Java", "java.lang.reflect.Array").newInstance(String, 0) /> --->
 		<cfset var contextDirectory = CreateObject("Java", "java.io.File").init(expandPath(arguments.sessionId)) />
 		<cfset var args = DeserializeJSON(arguments.properties) />
 		<cfset var antCommand = "#pathToAnt# #arguments.target# -lib " & getLibs(session) & " " & getArgs(args)  />
 		<cfset var Runtime = 0 />
 		<cfset var InputStreamReader = 0 />
 		<cfset var BufferedReader = 0 />
+		<cfset var thread = CreateObject("java", "java.lang.Thread")>
 		
 		<cfcontent reset="true" /><cfsetting enablecfoutputonly="true" />
 		
@@ -145,6 +146,9 @@
 			</cfloop>
 		</cflock>
 		
+		<cfset BufferedReader.close() />
+		<cfset InputStreamReader.close() />
+		
 		<cfif arguments.debug>
 			<cfoutput>
 Debug Information...
@@ -156,8 +160,20 @@ Debug Information...
 			</cfoutput>
 		</cfif>
 		
-		<!--- clean up --->
-		<cfdirectory action="delete" directory="#expandPath(session.getSessionId())#" recurse="true" />
+		<!--- try to delete our temp directory till it's gone --->
+		<cfloop condition="true">
+			<cftry>
+				<!--- clean up --->
+				<cfdirectory action="delete" directory="#expandPath(session.getSessionId())#" recurse="true" />
+				<cfbreak />
+				<cfcatch>
+Temp directory locked, waiting for unlock...
+					<!--- directory is likely locked --->
+					<cfset thread.sleep(500) />
+				</cfcatch>
+			</cftry>
+		</cfloop>
+			
 		
 	</cffunction>
 	
