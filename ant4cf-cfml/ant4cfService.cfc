@@ -90,6 +90,7 @@
 		<cfargument name="target" required="true" type="string" hint="I am the target to run." />
 		<cfargument name="debug" required="true" type="boolean" hint="I indicate if debug output should be shown" />
 		<cfargument name="properties" required="true" type="string" hint="I am a JSON encoded collection of arguments we need to pass into ant" />
+		<cfargument name="timeout" required="true" type="numeric" hint="I am the number of seconds to lock this process" />
 		
 		<cfset var session = getSession(arguments.sessionId) />
 		<cfset var pathToAnt = getProperty("pathToAnt") />
@@ -105,7 +106,7 @@
 		
 		<cfcontent reset="true" /><cfsetting enablecfoutputonly="true" />
 		
-		<cflock type="exclusive" timeout="1600">
+		<cflock type="exclusive" timeout="#arguments.timeout#">
 			<!---
 				Apparently cfexecute (before 8.0.1) doesn't gather stderr output.  This appears to be a standard where
 				processes can return error messages.  cfexecute only returns stdout.  To get arround this I wrote my 
