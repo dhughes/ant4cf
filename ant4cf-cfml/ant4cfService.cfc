@@ -111,7 +111,7 @@
 				own process to run the executable.
 			--->
 			<cfset Runtime = CreateObject("java", "java.lang.Runtime").getRuntime() />
-			<cfset Process = Runtime.exec(antCommand, EmptyArrayOfStrings, contextDirectory) />
+			<cfset Process = Runtime.exec(antCommand, JavaCast("null", ""), contextDirectory) />
 			
 			<!--- read the output --->
 			<cfset InputStreamReader = CreateObject("java", "java.io.InputStreamReader").init(Process.getInputStream()) />

@@ -9,8 +9,6 @@
 		<echo message="test2 ${foo}" />
 		<echo message="test3 ${bar}" />
 
-		<taskdef name="configure" classname="com.alagad.ant4cf.Configure" classpath="target/classes" />
-
 		<configure ant4cfUrl="http://ant4cf-test/CFIDE/ant4cf" adminPassword="${cfAdminPassword}" />
 		
 		<service component="adminapi.801.extensionsProxy" method="setMapping" property="result">
