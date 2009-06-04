@@ -11,11 +11,11 @@
 		<taskdef name="remoteant" classname="com.alagad.ant4cf.RemoteAnt" classpath="antlib/ant4cf-java-2.0-SNAPSHOT-jar-with-dependencies.jar" />
 		<taskdef name="service" classname="com.alagad.ant4cf.Service" classpath="antlib/ant4cf-java-2.0-SNAPSHOT-jar-with-dependencies.jar" />
 		
-		<configure ant4cfUrl="http://ant4cf-test/CFIDE/ant4cf" adminPassword="${cfAdminPassword}" />
+		<configure ant4cfUrl="http://ant4cf-test/CFIDE/ant4cf" adminPassword="${cfAdminPassword}" debug="true" />
 		
-		<remoteant antfile="remoteBuild.xml" debug="true" properties="foo,cfAdminPassword,bar" timeout="70" />
+		<remoteant antfile="remoteBuild.xml" properties="foo,cfAdminPassword,bar" timeout="70" />
 		
-		<service component="adminapi.801.extensionsProxy" method="setMapping" property="result">
+		<service component="adminapi.801.extensionsProxy123" method="setMapping" property="result">
 			<argument name="mapName" value="test123" />
 			<argument name="mapPath" value="/Users/dhughes/Sites/ant4cf/ant4cf-cfml/src/main/webapp/CFIDE/ant4cf/services/adminapi900" />
 		</service>

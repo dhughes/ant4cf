@@ -8,6 +8,7 @@ public class Configure extends Task {
 	private String ant4cfUrl; 
 	private String adminPassword;
 	private String adminUserId;
+	private boolean debug = false;
 	
 	// The method executing the task
     public void execute() throws BuildException {
@@ -16,6 +17,7 @@ public class Configure extends Task {
     	if(this.adminUserId != null){
     		getProject().setProperty("adminUserId", this.adminUserId);
     	}
+    	getProject().setProperty("debug", String.valueOf(this.debug));
     }	
     
     public void setAnt4cfUrl(String ant4cfUrl){
@@ -30,6 +32,8 @@ public class Configure extends Task {
 		this.adminUserId = adminUserId;
 	}
 	
-
+	public void setDebug(boolean debug){
+		this.debug = debug;
+	}
 	
 }

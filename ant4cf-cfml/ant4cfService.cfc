@@ -94,8 +94,6 @@
 		
 		<cfset var session = getSession(arguments.sessionId) />
 		<cfset var pathToAnt = getProperty("pathToAnt") />
-		<!--- <cfset var String = CreateObject("Java", "java.lang.Class").forName("java.lang.String") />
-    	<cfset var EmptyArrayOfStrings = CreateObject("Java", "java.lang.reflect.Array").newInstance(String, 0) /> --->
 		<cfset var contextDirectory = CreateObject("Java", "java.io.File").init(expandPath(arguments.sessionId)) />
 		<cfset var args = DeserializeJSON(arguments.properties) />
 		<cfset var antCommand = "#pathToAnt# #arguments.target# -lib " & getLibs(session) & " " & getArgs(args)  />
@@ -103,56 +101,13 @@
 		<cfset var InputStreamReader = 0 />
 		<cfset var BufferedReader = 0 />
 		<cfset var thread = CreateObject("java", "java.lang.Thread")>
+		<cfset var line = 0 />
 		
 		<cfcontent reset="true" /><cfsetting enablecfoutputonly="true" />
 		
-		<cflock type="exclusive" timeout="#arguments.timeout#">
-			<!---
-				Apparently cfexecute (before 8.0.1) doesn't gather stderr output.  This appears to be a standard where
-				processes can return error messages.  cfexecute only returns stdout.  To get arround this I wrote my 
-				own process to run the executable.
-			--->
-			<cfset Runtime = CreateObject("java", "java.lang.Runtime").getRuntime() />
-			<cfset Process = Runtime.exec(antCommand, JavaCast("null", ""), contextDirectory) />
-			
-			<!--- read the output --->
-			<cfset InputStreamReader = CreateObject("java", "java.io.InputStreamReader").init(Process.getInputStream()) />
-			<cfset BufferedReader = CreateObject("java", "java.io.BufferedReader").init(InputStreamReader) />
-			
-			<cfloop condition="true">
-				<cfset line = BufferedReader.readLine() />
-				
-				<cfif IsDefined("line")>
-					<cfoutput>#line##chr(13)##chr(10)#</cfoutput>
-					<cfflush />
-				<cfelse>
-					<cfbreak> 
-				</cfif>
-			
-			</cfloop>
-			
-			<!--- read errors --->
-			<cfset InputStreamReader = CreateObject("java", "java.io.InputStreamReader").init(Process.getErrorStream()) />
-			<cfset BufferedReader = CreateObject("java", "java.io.BufferedReader").init(InputStreamReader) />
-			<cfloop condition="true">
-				<cfset line = BufferedReader.readLine() />
-				
-				<cfif IsDefined("line")>
-					<cfoutput>#line##chr(13)##chr(10)#</cfoutput>
-					<cfflush />
-				<cfelse>
-					<cfbreak> 
-				</cfif>
-			
-			</cfloop>
-		</cflock>
-		
-		<cfset BufferedReader.close() />
-		<cfset InputStreamReader.close() />
-		
 		<cfif arguments.debug>
 			<cfoutput>
-Debug Information...
+Remote Debug Information...
 	SessionId: #arguments.sessionId#
 	Target: #arguments.target#
 	Properties: #args.toString()#
@@ -160,6 +115,48 @@ Debug Information...
 	Ran Command: #antCommand#
 			</cfoutput>
 		</cfif>
+		
+		<!---
+			Apparently cfexecute (before 8.0.1) doesn't gather stderr output.  This appears to be a standard where
+			processes can return error messages.  cfexecute only returns stdout.  To get arround this I wrote my 
+			own process to run the executable.
+		--->
+		<cfset Runtime = CreateObject("java", "java.lang.Runtime").getRuntime() />
+		<cfset Process = Runtime.exec(antCommand, JavaCast("null", ""), contextDirectory) />
+		
+		<!--- read the output --->
+		<cfset InputStreamReader = CreateObject("java", "java.io.InputStreamReader").init(Process.getInputStream()) />
+		<cfset BufferedReader = CreateObject("java", "java.io.BufferedReader").init(InputStreamReader) />
+		
+		<cfloop condition="true">
+			<cfset line = BufferedReader.readLine() />
+			
+			<cfif IsDefined("line")>
+				<cfoutput>#line##chr(13)##chr(10)#</cfoutput>
+				<cfflush />
+			<cfelse>
+				<cfbreak> 
+			</cfif>
+		
+		</cfloop>
+		
+		<!--- read errors --->
+		<cfset InputStreamReader = CreateObject("java", "java.io.InputStreamReader").init(Process.getErrorStream()) />
+		<cfset BufferedReader = CreateObject("java", "java.io.BufferedReader").init(InputStreamReader) />
+		<cfloop condition="true">
+			<cfset line = BufferedReader.readLine() />
+			
+			<cfif IsDefined("line")>
+				<cfoutput>#line##chr(13)##chr(10)#</cfoutput>
+				<cfflush />
+			<cfelse>
+				<cfbreak> 
+			</cfif>
+		
+		</cfloop>
+		
+		<cfset BufferedReader.close() />
+		<cfset InputStreamReader.close() />
 		
 		<!--- try to delete our temp directory till it's gone --->
 		<cfloop condition="true">

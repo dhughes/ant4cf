@@ -18,6 +18,10 @@ public class ConfigReader {
 		return this.project.getProperty("adminPassword");
 	}
 	
+	public boolean getDebug(){
+		return Boolean.parseBoolean(this.project.getProperty("debug"));
+	}
+	
 	public String getAdminUserId(){
 		if(this.project.getProperties().containsKey("adminUserId")){
 			return this.project.getProperty("adminUserId");

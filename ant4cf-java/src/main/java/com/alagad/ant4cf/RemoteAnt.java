@@ -31,7 +31,6 @@ public class RemoteAnt extends Task {
 	private String antfile;
 	private String target;
 	private String libdir = "antlib"; 
-	private boolean debug = false;
 	private String[] properties;
 	private ConfigReader config;
 	private int timeout = 60;
@@ -87,16 +86,26 @@ public class RemoteAnt extends Task {
     private void runRemoteTarget(String sessionId) throws IOException, Exception{
     	HttpClient client = new HttpClient();
     	
-    	PostMethod post = new PostMethod(this.config.getAnt4cfUrl() + "/ant4cfService.cfc");
-        NameValuePair[] data = {
+    	String url = this.config.getAnt4cfUrl() + "/ant4cfService.cfc";
+    	PostMethod post = new PostMethod(url);
+        
+    	NameValuePair[] data = {
             new NameValuePair("method", "runRemoteTarget"),
             new NameValuePair("target", this.target),
         	new NameValuePair("sessionId", sessionId),
-        	new NameValuePair("debug", Boolean.toString(this.debug)),
+        	new NameValuePair("debug", Boolean.toString(config.getDebug())),
         	new NameValuePair("properties", getProperties()),
     		new NameValuePair("timeout", String.valueOf(this.timeout))
         };
 
+        if(config.getDebug()){
+        	System.out.println("Service URL: " + url);
+        	System.out.println("Service Arguments...");
+        	for(int x = 0 ; x < data.length ; x++){
+        		System.out.println(data[x].getName() + ": " + data[x].getValue());
+        	}
+        }
+        
         post.setRequestBody(data);
         
         int status = client.executeMethod(post);
@@ -107,7 +116,7 @@ public class RemoteAnt extends Task {
 	        // dump the response.
 	        Util.dump(new InputStreamReader(in));
         } else {
-        	throw new Exception("HTTP Error: " + status + ", Detail: " + post.getResponseBodyAsString());
+        	throw new Exception("HTTP Error: " + status + ", Detail: " + Util.read(new InputStreamReader(post.getResponseBodyAsStream())));
         }
 
     	// disconnect
@@ -118,13 +127,23 @@ public class RemoteAnt extends Task {
     	HttpClient client = new HttpClient();
     	boolean exists; 
     	
-    	PostMethod post = new PostMethod(this.config.getAnt4cfUrl() + "/ant4cfService.cfc");
+    	String url = this.config.getAnt4cfUrl() + "/ant4cfService.cfc";
+    	PostMethod post = new PostMethod(url);
+    	
         NameValuePair[] data = {
             new NameValuePair("method", "useLib"),
         	new NameValuePair("sessionId", sessionId),
         	new NameValuePair("libFile", lib.getName()),
         	new NameValuePair("libHash", getFileHash(lib))
         };
+        
+        if(config.getDebug()){
+        	System.out.println("Service URL: " + url);
+        	System.out.println("Service Arguments...");
+        	for(int x = 0 ; x < data.length ; x++){
+        		System.out.println(data[x].getName() + ": " + data[x].getValue());
+        	}
+        }
 
         post.setRequestBody(data);
         
@@ -136,7 +155,7 @@ public class RemoteAnt extends Task {
 	        // handle response.
 	        exists = Boolean.parseBoolean(Util.read(new InputStreamReader(in)));
         } else {
-        	throw new Exception("HTTP Error: " + status + ", Detail: " + post.getResponseBodyAsString());
+        	throw new Exception("HTTP Error: " + status + ", Detail: " + Util.read(new InputStreamReader(post.getResponseBodyAsStream())));
         }
         
 
@@ -174,6 +193,15 @@ public class RemoteAnt extends Task {
 	    		new StringPart("sessionId", sessionId),
 	    		new StringPart("timeout", String.valueOf(this.timeout))
 	    	};
+	    	
+
+	        if(config.getDebug()){
+	        	System.out.println("Service URL: " + targetURL);
+	        	System.out.println("Service Arguments...");
+	        	for(int x = 0 ; x < parts.length ; x++){
+	        		System.out.println(parts[x].getName() + ": " + parts[x].toString());
+	        	}
+	        }
 	    	
 	    	filePost.setRequestEntity(
 	    		new MultipartRequestEntity(parts, filePost.getParams())
@@ -223,9 +251,19 @@ public class RemoteAnt extends Task {
     private String startRemoteRun() throws IOException, Exception{
     	HttpClient client = new HttpClient();
     	
-    	PostMethod post = new PostMethod(this.config.getAnt4cfUrl() + "/ant4cfService.cfc");
+    	String url = this.config.getAnt4cfUrl() + "/ant4cfService.cfc";
+    	PostMethod post = new PostMethod(url);
+    	
         NameValuePair[] data = getRemoteRunArguments();
 
+        if(config.getDebug()){
+        	System.out.println("Service URL: " + url);
+        	System.out.println("Service Arguments...");
+        	for(int x = 0 ; x < data.length ; x++){
+        		System.out.println(data[x].getName() + ": " + data[x].getValue());
+        	}
+        }
+        
         post.setRequestBody(data);
         
         int status = client.executeMethod(post);
@@ -237,7 +275,7 @@ public class RemoteAnt extends Task {
 	        // handle response.
 	        sessionId = Util.read(new InputStreamReader(in));
         } else {
-        	throw new Exception("HTTP Error: " + status + ", Detail: " + post.getResponseBodyAsString());
+        	throw new Exception("HTTP Error: " + status + ", Detail: " + Util.read(new InputStreamReader(post.getResponseBodyAsStream())));
         }
 
     	// disconnect
@@ -283,9 +321,6 @@ public class RemoteAnt extends Task {
 	}
 	*/
 
-	public void setDebug(boolean debug){
-		this.debug = debug;
-	}
 	
 	public void setProperties(String properties){
 		this.properties = properties.split(",");

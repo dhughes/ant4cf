@@ -40,8 +40,18 @@ public class Service extends Task {
     private String runService() throws IOException, Exception{
     	HttpClient client = new HttpClient();
     	
-    	PostMethod post = new PostMethod(getComponentUrl());
+    	String url = getComponentUrl();
+    	PostMethod post = new PostMethod(url);
+    	
         NameValuePair[] data = getArguments();
+        
+        if(config.getDebug()){
+        	System.out.println("Service URL: " + url);
+        	System.out.println("Service Arguments...");
+        	for(int x = 0 ; x < data.length ; x++){
+        		System.out.println(data[x].getName() + ": " + data[x].getValue());
+        	}
+        }
         
         post.setRequestBody(data);
         
@@ -54,7 +64,7 @@ public class Service extends Task {
 	        // dump the response.
 	        result = Util.read(new InputStreamReader(in));
         } else {
-        	throw new Exception("HTTP Error: " + status + ", Detail: " + post.getResponseBodyAsString());
+        	throw new Exception("HTTP Error: " + status + ", Detail: " + Util.read(new InputStreamReader(post.getResponseBodyAsStream())));
         }
 
     	// disconnect
