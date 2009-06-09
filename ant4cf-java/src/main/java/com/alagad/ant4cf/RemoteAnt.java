@@ -37,7 +37,16 @@ public class RemoteAnt extends Task {
 
 	// The method executing the task
     public void execute() throws BuildException {
+    	String targetDesc;
+    	
+    	if(this.target == null){
+    		targetDesc = "default";
+    	} else {
+    		targetDesc = "'" + this.target + "'";
+    	}
+    	
     	config = new ConfigReader(getProject());
+    	
     	if(this.target != null){
     		System.out.println("Preparing to run target '" + this.target + "' in '" + this.antfile + "' remotely via server at '" + this.config.getAnt4cfUrl() + "'.");
     	} else {
@@ -68,7 +77,7 @@ public class RemoteAnt extends Task {
 			}
 		}
 
-		System.out.println("Running target '" + this.target + "' remotely...");	
+		System.out.println("Running target " + targetDesc + " remotely...");	
 		System.out.println("************************************************");	
 
 		// run the remote target
@@ -76,7 +85,7 @@ public class RemoteAnt extends Task {
 			runRemoteTarget(sessionId); 
 			
 			System.out.println("************************************************");
-			System.out.println("Target '" + this.target + "' completed");
+			System.out.println("Target '" + targetDesc + "' completed");
 		} catch(Exception e){
 			throw new BuildException(e.getMessage());
 		}

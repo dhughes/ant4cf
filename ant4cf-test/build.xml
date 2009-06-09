@@ -11,7 +11,7 @@
 		<taskdef name="remoteant" classname="com.alagad.ant4cf.RemoteAnt" classpath="antlib/ant4cf-java-2.0-SNAPSHOT-jar-with-dependencies.jar" />
 		<taskdef name="service" classname="com.alagad.ant4cf.Service" classpath="antlib/ant4cf-java-2.0-SNAPSHOT-jar-with-dependencies.jar" />
 		
-		<configure ant4cfUrl="http://ant4cf-test/CFIDE/ant4cf" adminPassword="${cfAdminPassword}" debug="true" />
+		<configure ant4cfUrl="http://ant4cf-test/CFIDE/ant4cf" adminPassword="${cfAdminPassword}" />
 		
 		<remoteant antfile="remoteBuild.xml" properties="foo,cfAdminPassword,bar" timeout="70" />
 		

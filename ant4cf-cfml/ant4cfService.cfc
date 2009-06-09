@@ -101,8 +101,8 @@
 		<cfset var InputStreamReader = 0 />
 		<cfset var BufferedReader = 0 />
 		<cfset var thread = CreateObject("java", "java.lang.Thread")>
-		<cfset var line = 0 />
 		
+        
 		<cfcontent reset="true" /><cfsetting enablecfoutputonly="true" />
 		
 		<cfif arguments.debug>
@@ -127,37 +127,13 @@ Remote Debug Information...
 		<!--- read the output --->
 		<cfset InputStreamReader = CreateObject("java", "java.io.InputStreamReader").init(Process.getInputStream()) />
 		<cfset BufferedReader = CreateObject("java", "java.io.BufferedReader").init(InputStreamReader) />
-		
-		<cfloop condition="true">
-			<cfset line = BufferedReader.readLine() />
-			
-			<cfif IsDefined("line")>
-				<cfoutput>#line##chr(13)##chr(10)#</cfoutput>
-				<cfflush />
-			<cfelse>
-				<cfbreak> 
-			</cfif>
-		
-		</cfloop>
-		
-		<!--- read errors --->
+		<cfset read(BufferedReader, sessionId, "output") />
+        
+		<!--- read the errors --->
 		<cfset InputStreamReader = CreateObject("java", "java.io.InputStreamReader").init(Process.getErrorStream()) />
 		<cfset BufferedReader = CreateObject("java", "java.io.BufferedReader").init(InputStreamReader) />
-		<cfloop condition="true">
-			<cfset line = BufferedReader.readLine() />
-			
-			<cfif IsDefined("line")>
-				<cfoutput>#line##chr(13)##chr(10)#</cfoutput>
-				<cfflush />
-			<cfelse>
-				<cfbreak> 
-			</cfif>
-		
-		</cfloop>
-		
-		<cfset BufferedReader.close() />
-		<cfset InputStreamReader.close() />
-		
+		<cfset read(BufferedReader, sessionId, "error") />
+       
 		<!--- try to delete our temp directory till it's gone --->
 		<cfloop condition="true">
 			<cftry>
@@ -174,7 +150,61 @@ Temp directory locked, waiting for unlock...
 			
 		
 	</cffunction>
+    
+    <!--- this convoluted code is here because on some platforms Process.exec() does not end cleanly and causes the entire process to hang forever. 
+		by forking each readline into a thread I can watch that thread to see if it's hung and kill it if needed --->
+    <cffunction name="read" access="private" output="true" returntype="void">
+    	<cfargument name="BufferedReader" />
+        <cfargument name="sessionId" />
+        <cfargument name="id" />        
+        <cfset var line = 0 />
+        <cfset var threadId = 0 />
+        <cfset var thisThread = 0 />
+        
+        <cfloop condition="true">
+        	<cfset threadId = threadId+1 />
+			<cfthread action="run" name="#id#-#sessionId#-#threadId#" BufferedReader="#BufferedReader#">            	
+				<cfset thread.finished = false />
+                <cfset line = BufferedReader.readLine() />
+                
+                <cfif IsDefined("line")>
+					<cfset thread.line = line />
+                <cfelse>
+                	<cfset thread.finished = true />
+                </cfif>
+			</cfthread>
+			<cfthread action="join" name="#id#-#sessionId#-#threadId#" timeout="10000" />
+			<cfset thisThread = cfthread["#id#-#sessionId#-#threadId#"] />
+            
+            <!--- check to see if this thread is still running... if so, terminate it --->
+            <cfif thisThread.status IS "RUNNING">
+            	<cfthread action="terminate" name="#id#-#sessionId#-#threadId#" />
+                <!--- 'cause the thread borked we know we're done reading data --->
+                <cfbreak />
+            </cfif>
+            
+			<cfif thisThread.finished>
+            	<cfbreak />
+            </cfif>    
+            
+			<cfoutput>#thisThread.line##chr(13)##chr(10)#</cfoutput><cfflush />
+        </cfloop>
+        
+        <!--- try to close the buffered reader --->
+        <cfthread action="run" name="#id#-#sessionId#-#threadId#-close" BufferedReader="#BufferedReader#">            
+        	<cfset BufferedReader.close() />
+        </cfthread>
+        <cfthread action="join" name="#id#-#sessionId#-#threadId#-close" timeout="10000" />
+        <cfset thisThread = cfthread["#id#-#sessionId#-#threadId#-close"] />
+        <!--- check to see if this thread is still running... if so, terminate it --->
+        <cfif thisThread.status IS "RUNNING">
+            <cfthread action="terminate" name="#id#-#sessionId#-#threadId#-close" />
+            <!--- 'cause the thread borked we know we're done reading data --->
+            <cfbreak />
+        </cfif>
+    </cffunction>
 	
+    
 	<cffunction name="getLibs" access="private" output="false" returntype="string">
 		<cfargument name="session" required="true" type="any" hint="I am the session." />
 		<cfset var libs = 0 />

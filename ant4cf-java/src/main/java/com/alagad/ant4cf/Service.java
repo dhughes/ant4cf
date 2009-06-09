@@ -46,8 +46,6 @@ public class Service extends Task {
         NameValuePair[] data = getArguments();
         
         if(config.getDebug()){
-        	System.out.println("Service URL: " + url);
-        	System.out.println("Service Arguments...");
         	for(int x = 0 ; x < data.length ; x++){
         		System.out.println(data[x].getName() + ": " + data[x].getValue());
         	}
@@ -59,10 +57,10 @@ public class Service extends Task {
         
         String result;
         if(status == 200){
-	        InputStream in = post.getResponseBodyAsStream();
-	        
+            InputStream in = post.getResponseBodyAsStream();
+            
 	        // dump the response.
-	        result = Util.read(new InputStreamReader(in));
+            result = Util.read(new InputStreamReader(in));
         } else {
         	throw new Exception("HTTP Error: " + status + ", Detail: " + Util.read(new InputStreamReader(post.getResponseBodyAsStream())));
         }
