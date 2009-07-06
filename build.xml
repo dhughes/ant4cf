@@ -25,6 +25,8 @@
 		<exec executable="svn"> 
 			<arg line="export ${docsSvnUrl} --force build/documentation --username ${SVNUSERNAME} --password ${SVNPASSWORD}"/> 
 		</exec>
+		
+		<zip basedir="build" destfile="ant4cf.zip"  />
 			
 	</target>
 	
