@@ -33,7 +33,10 @@
 		<cfset abbreviatedException.detail = Exception.detail />
 		<cfset abbreviatedException.tagContext = Exception.tagContext />
 		
-		<cfheader statuscode="400" />
+		<cftry>
+    	    <cfheader statuscode="400" />
+	        <cfcatch></cfcatch>
+        </cftry>
 		<cfdump var="#abbreviatedException#" format="text" />
 		<cfabort />
 	</cffunction>

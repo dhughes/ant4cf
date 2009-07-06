@@ -1,6 +1,8 @@
 <cfcomponent output="false">
 
 	<cfparam name="application.sessions" default="#ArrayNew(1)#" />
+    <!--- if a thread hangs for 45 seconds we'll kill it --->
+    <cfset variables.defaultThreadKillTimeout = 45000 />
 	
 	<cffunction name="startRemoteRun" access="remote" hint="I start the process of running a build file remotely." output="false" returntype="string" returnformat="plain">
 		<cfargument name="buildXml" hint="I am the xml of the build file being run remotely." required="true" type="xml" />
@@ -172,13 +174,20 @@ Temp directory locked, waiting for unlock...
                 <cfelse>
                 	<cfset thread.finished = true />
                 </cfif>
+                
+                <!---
+                <cfdump var="#thread#" />
+                <cfabort />
+                --->
 			</cfthread>
-			<cfthread action="join" name="#id#-#sessionId#-#threadId#" timeout="10000" />
+			<cfthread action="join" name="#id#-#sessionId#-#threadId#" timeout="#variables.defaultThreadKillTimeout#" />
 			<cfset thisThread = cfthread["#id#-#sessionId#-#threadId#"] />
             
             <!--- check to see if this thread is still running... if so, terminate it --->
             <cfif thisThread.status IS "RUNNING">
             	<cfthread action="terminate" name="#id#-#sessionId#-#threadId#" />
+                <!--- <cfdump var="#thisThread#" />
+                <cfabort /> --->
                 <!--- 'cause the thread borked we know we're done reading data --->
                 <cfbreak />
             </cfif>
@@ -194,7 +203,7 @@ Temp directory locked, waiting for unlock...
         <cfthread action="run" name="#id#-#sessionId#-#threadId#-close" BufferedReader="#BufferedReader#">            
         	<cfset BufferedReader.close() />
         </cfthread>
-        <cfthread action="join" name="#id#-#sessionId#-#threadId#-close" timeout="10000" />
+        <cfthread action="join" name="#id#-#sessionId#-#threadId#-close" timeout="#variables.defaultThreadKillTimeout#" />
         <cfset thisThread = cfthread["#id#-#sessionId#-#threadId#-close"] />
         <!--- check to see if this thread is still running... if so, terminate it --->
         <cfif thisThread.status IS "RUNNING">

@@ -208,7 +208,16 @@ public class RemoteAnt extends Task {
 	        	System.out.println("Service URL: " + targetURL);
 	        	System.out.println("Service Arguments...");
 	        	for(int x = 0 ; x < parts.length ; x++){
-	        		System.out.println(parts[x].getName() + ": " + parts[x].toString());
+	        		if(parts[x].getClass().getName().equals("org.apache.commons.httpclient.methods.multipart.FilePart")){
+	        			FilePart part = (FilePart) parts[x];
+	        			
+	        			System.out.println(part.getName() + ": {File value}");
+	        		} else {
+	        			StringPart part = (StringPart) parts[x];
+	        			
+	        			System.out.println(part.getName() + ": {String value}");
+	        		}
+	        		
 	        	}
 	        }
 	    	
@@ -224,7 +233,7 @@ public class RemoteAnt extends Task {
 	    	if (status == HttpStatus.SC_OK) {
 	    		System.out.println("Upload complete");
 	    	} else {
-	    		System.out.println("Upload failed: " + HttpStatus.getStatusText(status));
+	    		System.out.println("Upload failed: " + HttpStatus.getStatusText(status) + ", Detail: " + Util.read(new InputStreamReader(filePost.getResponseBodyAsStream())));
 	    	}
 
     	} catch(FileNotFoundException e) {
