@@ -18,7 +18,7 @@
 		
 		<!-- export the jar file into the build directory as well -->
 		<exec executable="svn"> 
-			<arg line="export ${jarSvnUrl} --force build --username ${SVNUSERNAME} --password ${SVNPASSWORD}"/> 
+			<arg line="export ${jarSvnUrl} --force build/ant4cf-java-2.0-SNAPSHOT-jar-with-dependencies.jar --username ${SVNUSERNAME} --password ${SVNPASSWORD}"/> 
 		</exec>
 		
 		<!-- export the docs into the build directory as well -->
