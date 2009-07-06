@@ -3,19 +3,29 @@
 	<target name="Package">
 		<input message="Please enter SVN server username:" addproperty="SVNUSERNAME" />
 		<input message="Please enter SVN server password:" addproperty="SVNPASSWORD" />
-		
+
 		<property name="cfmlSvnUrl" value="http://svn.alagad.com/ant4cf/trunk/ant4cf-cfml"/>
+		<property name="jarSvnUrl" value="http://svn.alagad.com/ant4cf/trunk/ant4cf-java/target/ant4cf-java-2.0-SNAPSHOT-jar-with-dependencies.jar"/>
+		<property name="docsSvnUrl" value="http://svn.alagad.com/ant4cf/trunk/documentation/"/>
 		
 		<!-- delete the build directory -->
 		<delete dir="build" failonerror="false" />
 		
 		<!-- export the ant4cf-cfml directory into the build directory --> 
 		<exec executable="svn"> 
-			<arg line="export ${cfmlSvnUrl} - -force build/ant4cf - -username ${SVNUSERNAME} - -password ${SVNPASSWORD}"/> 
+			<arg line="export ${cfmlSvnUrl} --force build/ant4cf --username ${SVNUSERNAME} --password ${SVNPASSWORD}"/> 
 		</exec>
 		
-		<!-- copy the jar file into the build directory as well -->
-		<copy file="ant4cf-java/target/ant4cf-java-2.0-SNAPSHOT-jar-with-dependencies.jar" todir="build" />
+		<!-- export the jar file into the build directory as well -->
+		<exec executable="svn"> 
+			<arg line="export ${jarSvnUrl} --force build --username ${SVNUSERNAME} --password ${SVNPASSWORD}"/> 
+		</exec>
+		
+		<!-- export the docs into the build directory as well -->
+		<exec executable="svn"> 
+			<arg line="export ${docsSvnUrl} --force build/documentation --username ${SVNUSERNAME} --password ${SVNPASSWORD}"/> 
+		</exec>
+			
 	</target>
 	
 	
