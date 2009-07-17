@@ -1,0 +1,1 @@
+In eclipse, with the maven plugin installed, right click on the project, run as, maven assembly:assembly

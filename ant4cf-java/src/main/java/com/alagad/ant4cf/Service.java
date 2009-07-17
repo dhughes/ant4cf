@@ -29,12 +29,17 @@ public class Service extends Task {
     	String result;
     	try{
 			result = runService();
+			
+			
 		} catch(Exception e){
 			throw new BuildException(e.getMessage());
 		}
     	
 		// set the property
-		getProject().setProperty(this.property, result);    	
+		if(this.property != null){
+			getProject().setProperty(this.property, result);
+		}  
+		
     }	
     
     private String runService() throws IOException, Exception{
@@ -42,10 +47,13 @@ public class Service extends Task {
     	
     	String url = getComponentUrl();
     	PostMethod post = new PostMethod(url);
-    	
+
         NameValuePair[] data = getArguments();
         
         if(config.getDebug()){
+        	System.out.println("Posting to Service URL: " + url);
+        	System.out.println("Service Arguments...");
+        	
         	for(int x = 0 ; x < data.length ; x++){
         		System.out.println(data[x].getName() + ": " + data[x].getValue());
         	}
@@ -57,17 +65,27 @@ public class Service extends Task {
         
         String result;
         if(status == 200){
+        	if(config.getDebug()){
+            	System.out.println("Status: 200");
+        	}
+        	//post.getResponseContentLength();
+        	
             InputStream in = post.getResponseBodyAsStream();
-            
+                        
 	        // dump the response.
             result = Util.read(new InputStreamReader(in));
+            
         } else {
+        	if(config.getDebug()){
+            	System.out.println("Status: " + status);
+        	}
+        	
         	throw new Exception("HTTP Error: " + status + ", Detail: " + Util.read(new InputStreamReader(post.getResponseBodyAsStream())));
         }
 
     	// disconnect
         post.releaseConnection();
-        
+       
         return result;
     }
     
