@@ -23,7 +23,7 @@
 		</cfif>
 	</cffunction>
  --->
-	<!--- 
+	
 	<cffunction name="onError" returnType="void" output="true">
 		<cfargument name="Exception" required="true"/>
 		<cfargument name="EventName" type="String" required="true" />
@@ -36,7 +36,7 @@
 		<cftry>
     	    <cfheader statuscode="400" />
 	        <cfcatch></cfcatch>
-        </cftry>
+        </cftry> 
 		<cfdump var="#abbreviatedException#" format="text" />
 		<cfabort />
 	</cffunction>
@@ -52,7 +52,7 @@
 		<cfheader statuscode="404" />		
 		<cfdump var="#abbreviatedException#" format="text" />
 		<cfabort />
-	</cffunction> --->
+	</cffunction> 
 
 
 
