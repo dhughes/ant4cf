@@ -28,7 +28,7 @@
 		<cfset config = XmlParse(config) />
 		
 		<!--- search config for the named destination --->
-		<cfset found = XmlSearch(config, "/service/channel-definition[@id='#id#']") />
+		<cfset found = XmlSearch(config, "/services-config/channels/channel-definition[@id='#id#']") />
 		
 		<cfreturn ArrayLen(found) IS 1 />
 	</cffunction>
