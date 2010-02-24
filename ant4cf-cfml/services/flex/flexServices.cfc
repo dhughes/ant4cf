@@ -1,6 +1,6 @@
 <cfcomponent>
 
-	<cffunction name="destinationExists" access="remote" hint="I validate that the flex destination exists" returntype="boolean">
+	<cffunction name="destinationExists" access="remote" hint="I validate that the flex destination exists" returntype="boolean" returnFormat="plain">
 		<cfargument name="serviceArea" hint="messaging, proxy, or remoting" />
 		<cfargument name="id" hint="I am the destination id to confirm exists" />
 		
@@ -17,7 +17,7 @@
 		<cfreturn ArrayLen(found) IS 1 />
 	</cffunction>
 
-	<cffunction name="channelExists" access="remote" hint="I validate that the flex channel exists" returntype="boolean">
+	<cffunction name="channelExists" access="remote" hint="I validate that the flex channel exists" returntype="boolean" returnFormat="plain">
 		<cfargument name="id" hint="I am the channel id to confirm exists" />
 		
 		<cfset var config = 0 />
